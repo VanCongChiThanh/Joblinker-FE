@@ -2,7 +2,7 @@
     <header class="site-navbar mt-3">
       <div class="container-fluid">
         <div class="row align-items-center">
-          <div class="site-logo col-6"><router-link to="/">Careers</router-link></div>
+          <div class="site-logo col-6"><router-link to="/">JobLinker</router-link></div>
 
           <nav class="mx-auto site-navigation">
             <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
@@ -11,7 +11,6 @@
               <li class="d-lg-none"><router-link to="/contact">Contact</router-link></li>
             </ul>
           </nav>
-
           <div class="right-cta-menu text-right d-flex aligin-items-center col-6">
             <div class="ml-auto">
               <router-link to="/" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span

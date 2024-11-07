@@ -32,10 +32,9 @@
       <div class="container">
         <div class="row mb-5 justify-content-center">
           <div class="col-md-7 text-center">
-            <h2 class="section-title mb-2 text-white">Careers Statistics</h2>
+            <h2 class="section-title mb-2 text-white">Opportunities Overview</h2>
             <p class="lead text-white">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita
-              unde officiis recusandae sequi excepturi corrupti.
+              Unlock Your Career Potential. Discover thousands of opportunities, connect with top companies, and find your perfect role.
             </p>
           </div>
         </div>
