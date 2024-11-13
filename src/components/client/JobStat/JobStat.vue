@@ -1,6 +1,6 @@
 <template>
     <div class="col-md-7 text-center">
-        <h2 class="section-title mb-2">{{jobs().length}} Job(s) found</h2>
+        <h2 class="section-title mb-2">{{jobs().length}} jobs are waiting for you!</h2>
     </div>
 </template>
 
