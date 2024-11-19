@@ -41,7 +41,7 @@
 
                 <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
                     <div class="d-flex align-items-center justify-content-center mb-2">
-                        <strong class="number" data-number="54">0</strong>
+                        <strong class="number">{{jobs().length}}</strong>
                     </div>
                     <span class="caption">Jobs Posted</span>
                 </div>
@@ -63,14 +63,18 @@
         </div>
     </section>
 
-    <section class="site-section" id="joblist">
+    <section class="site-section p-0" id="joblist">
         <div class="container">
-            <div class="row mb-5 justify-content-center">
-                <!-- Stat -->
-                <JobStat />
+            <div class="row my-3">
+                <div class="col-sm-5">
+                    <div class="top-job-hot-title d-flex align-items-center">
+                        <i class="fas fa-fire text-danger mr-2"></i>
+                        <h3 class="font-weight-bold text-primary">TOP JOB HOT</h3>
+                    </div>
+                    <div class="gradient-underline"></div>
+                </div>
             </div>
-
-            <div class="mb-5 justify-content-center w-100">
+            <div class="justify-content-center w-100">
                 <joblist />
             </div>
 
@@ -242,19 +246,32 @@ document.write(new Date().getFullYear());
 <script>
 import joblist from "@/components/client/JobList/JobList.vue";
 import jobSearch from "@/components/client/JobSearch/JobSearch.vue";
-import JobStat from "@/components/client/JobStat/JobStat.vue";
 import NavBar from "@/views/client/NavBar.vue";
+import { mapState } from "vuex";
 
 export default {
   name: "HomePage",
   components: {
     joblist,
     jobSearch,
-    JobStat,
     NavBar,
   },
+  methods:{
+    ...mapState(["jobs"])
+  }
 };
 </script>
-<style scoped>
 
+<style scoped>
+.top-job-hot-title {
+    font-size: 2.5rem;
+}
+
+.gradient-underline {
+    height: 4px;
+    width: 100%;
+    background: linear-gradient(to right, #f39c12, #e74c3c);
+    margin-top: 8px;
+    border-radius: 2px;
+}
 </style>

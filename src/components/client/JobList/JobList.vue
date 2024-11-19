@@ -5,30 +5,45 @@
             <div class="col-sm-5 fixed-height">
                 <div class="job-list">
                     <div v-for="job in jobs" :key="job.id" class="job-item border-bottom pb-3 mb-3 pt-3 bg-white rounded shadow-sm" @click="selectJob(job)" style="cursor: pointer; max-height: 600px; overflow-y: auto;">
-                        <div class="item pb-3 mb-3 pt-3 p-3">
-                            <div class="badge d-flex justify-content-between align-items-center text-align-center">
-                                <span class="time">{{ timeAgo(job.createdAt) }}</span>
-                                <span class="badge-primary px-2 py-1 mb-3">{{ job.level }}</span>
+                        <div class="job-item border p-3 mb-3 rounded bg-light">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="text-muted">{{ timeAgo(job.createdAt) }}</span>
+                                <span class="badge badge-primary px-2 py-1">{{ job.level }}</span>
                             </div>
-                            <div class="title">
-                                <h3>{{ job.name }}</h3>
+                            <h3 class="job-title font-weight-bold mb-2">{{ job.name }}</h3>
+                            <div class="company d-flex align-items-center mb-2">
+                                <img :src="`http://localhost:8080/storage/companyLogo/${job.company.logo}`" class="logo mr-2 rounded" alt="Company Logo" />
+                                <span class="font-weight-bold">{{ job.company.name }}</span>
                             </div>
-                            <div class="company d-flex align-items-center">
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRU2xldVFYuNkJxgaNlwmeEUWOolsqrU9-6TA&s" class="logo" />
-                                <span>{{ job.company.name }}</span>
+                            <div class="salary text-success font-weight-bold mb-2">
+                                <i class="fas fa-dollar-sign"></i> {{ job.salary.toLocaleString() }}
                             </div>
-                            <strong class="text-black">${{ job.salary.toLocaleString() }}</strong>
+                            <div class="section-divider"></div>
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="fas fa-briefcase mr-2"></i>
+                                <span>Tại văn phòng</span>
+                            </div>
+                            <div class="location mb-2">
+                                <i class="fas fa-location-dot mr-2"></i>{{ job.location }}
+                            </div>
+                            <div class="skills d-flex flex-wrap">
+                                <button v-for="skill in job.skills" :key="skill.id" class="btn btn-light border-dark text-dark rounded-pill mr-2 mb-2" style="font-size: 0.7rem; padding: 0.2rem 0.3rem;">
+                                    {{ skill.name }}
+                                </button>
+                            </div>
+                            <div class="section-divider"></div>
+                            <ul class="benefits list-unstyled mt-2 text-dark">
+                                <li><i class="fas fa-circle mr-2" style="font-size: 0.5rem; color: #dc3545;"></i> Premium Healthcare program for you and your family</li>
+                                <li><i class="fas fa-circle mr-2" style="font-size: 0.5rem; color: #dc3545;"></i> Monthly childcare support, Paternity Leave</li>
+                                <li><i class="fas fa-circle mr-2" style="font-size: 0.5rem; color: #dc3545;"></i> Frequent US working opportunities</li>
+                            </ul>
 
-                            <div class="location">
-                                <i class="fa-solid fa-location-dot"></i>
-                                {{ job.location }}
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-sm-7">
-                <job-preview v-if="selectedJob" :job="selectedJob" />
+                <job-details v-if="selectedJob" :job="selectedJob" />
             </div>
         </div>
     </div>
@@ -40,16 +55,21 @@
 import axios from "axios";
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { defineComponent } from "vue";
-import { mapState, mapActions } from "vuex";
-import JobPreview from "./JobPreview.vue"; 
+import {
+    defineComponent
+} from "vue";
+import {
+    mapState,
+    mapActions
+} from "vuex";
+import JobDetails from "../JobDetails/JobDetails.vue";
 
 dayjs.extend(relativeTime);
 
 export default defineComponent({
     name: "JobList",
     components: {
-        JobPreview, 
+        JobDetails,
     },
     data() {
         return {
@@ -62,7 +82,7 @@ export default defineComponent({
     methods: {
         ...mapActions(["addJobs"]),
         selectJob(job) {
-            this.selectedJob = job; 
+            this.selectedJob = job;
         },
         timeAgo(date) {
             return dayjs(date).fromNow();
@@ -102,4 +122,11 @@ img {
     height: auto;
     margin-right: 10px;
 }
+
+.section-divider {
+    border-top: 1px dashed #e0e0e0;
+    margin: 0.5rem 0;
+}
+
+
 </style>

@@ -1,17 +1,12 @@
 <template>
     <div class="col-md-7 text-center">
-        <h2 class="section-title mb-2">{{jobs().length}} jobs are waiting for you!</h2>
+        <h2 class="section-title mb-2">Top Job Hot</h2>
     </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
 
 export default{
-
-methods:{
-    ...mapState(["jobs"])
-}
 
 }
 </script>
