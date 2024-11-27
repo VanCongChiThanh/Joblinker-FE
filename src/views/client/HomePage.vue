@@ -55,7 +55,7 @@
 
                 <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
                     <div class="d-flex align-items-center justify-content-center mb-2">
-                        <strong class="number" data-number="550">0</strong>
+                        <strong class="number">{{ companies().length }}</strong>
                     </div>
                     <span class="caption">Companies</span>
                 </div>
@@ -75,57 +75,15 @@
                 </div>
             </div>
             <div class="justify-content-center w-100">
-                <joblist />
-            </div>
 
-            <div class="row pagination-wrap">
-                <div class="col-md-6 text-center text-md-left">
-                    <div class="custom-pagination ml-auto">
-                        <a href="#" class="prev">Previous</a>
-                        <div class="d-inline-block">
-                            <a href="#" class="active">1</a>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <a href="#">4</a>
-                        </div>
-                        <a href="#" class="next">Next</a>
-                    </div>
-                </div>
+                <joblist />
             </div>
         </div>
     </section>
 
     <section class="site-section py-4 mb-5 border-top">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-12 text-center mt-4 mb-5">
-                    <div class="row justify-content-center">
-                        <div class="col-md-7">
-                            <h2 class="section-title mb-2">
-                                Our Candidates Work In Company
-                            </h2>
-                            <p class="lead">
-                                Porro error reiciendis commodi beatae omnis similique
-                                voluptate rerum ipsam fugit mollitia ipsum facilis expedita
-                                tempora suscipit iste
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-3 col-md-6 text-center">
-                    <img src="../../assets/images/logo_mailchimp.svg" alt="Image" class="img-fluid logo-1" />
-                </div>
-                <div class="col-6 col-lg-3 col-md-6 text-center">
-                    <img src="../../assets/images/logo_paypal.svg" alt="Image" class="img-fluid logo-2" />
-                </div>
-                <div class="col-6 col-lg-3 col-md-6 text-center">
-                    <img src="../../assets/images/logo_stripe.svg" alt="Image" class="img-fluid logo-3" />
-                </div>
-                <div class="col-6 col-lg-3 col-md-6 text-center">
-                    <img src="../../assets/images/logo_visa.svg" alt="Image" class="img-fluid logo-4" />
-                </div>
-            </div>
-        </div>
+        <h2 class="text-center mb-4">Top Employers</h2>
+        <employer-list />
     </section>
 
     <section class="bg-light pt-5 testimony-full">
@@ -133,15 +91,12 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 mx-auto">
-                        <img class="img-fluid mx-auto" src="../../assets/images/person_1.jpg" alt="Image" />
+                        <img class="img-fluid mx-auto" src="../../assets/images/ste.jpg" alt="Image" />
                         <blockquote>
                             <p>
-                                &ldquo;Soluta quasi cum delectus eum facilis recusandae
-                                nesciunt molestias accusantium libero dolores repellat id in
-                                dolorem laborum ad modi qui at quas dolorum voluptatem
-                                voluptatum repudiandae.&rdquo;
+                                &ldquo;Cách duy nhất để làm tốt công việc là yêu thích những gì bạn làm. Nếu bạn chưa tìm ra nó, hãy tiếp tục tìm kiếm. Đừng dừng lại..&rdquo;
                             </p>
-                            <p><cite> &mdash; Richard Anderson</cite></p>
+                            <p><cite> &mdash; Steve Jobs</cite></p>
                         </blockquote>
                     </div>
                 </div>
@@ -149,15 +104,12 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 mx-auto">
-                        <img class="img-fluid mx-auto" src="../../assets/images/person_2.jpg" alt="Image" />
+                        <img class="img-fluid mx-auto" src="../../assets/images/musk.jpg" alt="Image" />
                         <blockquote>
                             <p>
-                                &ldquo;Soluta quasi cum delectus eum facilis recusandae
-                                nesciunt molestias accusantium libero dolores repellat id in
-                                dolorem laborum ad modi qui at quas dolorum voluptatem
-                                voluptatum repudiandae.&rdquo;
+                                &ldquo;Đầu tư vào bản thân bạn là khoản đầu tư tốt nhất mà bạn có thể thực hiện. Bất cứ điều gì bạn làm để cải thiện kỹ năng hoặc hiểu biết của mình đều sẽ mang lại lợi ích trong tương lai..&rdquo;
                             </p>
-                            <p><cite> &mdash; Chris Peters</cite></p>
+                            <p><cite> &mdash; Elon Musk</cite></p>
                         </blockquote>
                     </div>
                 </div>
@@ -247,6 +199,7 @@ document.write(new Date().getFullYear());
 import joblist from "@/components/client/JobList/JobList.vue";
 import jobSearch from "@/components/client/JobSearch/JobSearch.vue";
 import NavBar from "@/views/client/NavBar.vue";
+import EmployerList from "@/components/client/Employers/EmployerList.vue";
 import { mapState } from "vuex";
 
 export default {
@@ -255,9 +208,10 @@ export default {
     joblist,
     jobSearch,
     NavBar,
+    EmployerList,
   },
   methods:{
-    ...mapState(["jobs"])
+    ...mapState(["jobs","companies"])
   }
 };
 </script>

@@ -21,7 +21,7 @@
                             <div class="section-divider"></div>
                             <div class="d-flex align-items-center mb-2">
                                 <i class="fas fa-briefcase mr-2"></i>
-                                <span>Tại văn phòng</span>
+                                <span>At the office</span>
                             </div>
                             <div class="location mb-2">
                                 <i class="fas fa-location-dot mr-2"></i>{{ job.location }}
@@ -37,7 +37,6 @@
                                 <li><i class="fas fa-circle mr-2" style="font-size: 0.5rem; color: #dc3545;"></i> Monthly childcare support, Paternity Leave</li>
                                 <li><i class="fas fa-circle mr-2" style="font-size: 0.5rem; color: #dc3545;"></i> Frequent US working opportunities</li>
                             </ul>
-
                         </div>
                     </div>
                 </div>
@@ -52,9 +51,6 @@
 </template>
 
 <script>
-import axios from "axios";
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import {
     defineComponent
 } from "vue";
@@ -62,7 +58,12 @@ import {
     mapState,
     mapActions
 } from "vuex";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 import JobDetails from "../JobDetails/JobDetails.vue";
+import {
+    fetchJobs
+} from "@/services/jobService";
 
 dayjs.extend(relativeTime);
 
@@ -73,6 +74,9 @@ export default defineComponent({
     },
     data() {
         return {
+            currentPage: 1,
+            pageSize: 4,
+            filter: "name~''",
             selectedJob: null,
         };
     },
@@ -87,19 +91,21 @@ export default defineComponent({
         timeAgo(date) {
             return dayjs(date).fromNow();
         },
-    },
-    created() {
-        axios.get("http://localhost:8080/api/v1/jobs")
-            .then((response) => {
-                if (response.data.statusCode === 200 && response.data.data.result) {
-                    this.addJobs(response.data.data.result);
+        async loadJobs() {
+            try {
+                const response = await fetchJobs(this.currentPage, this.pageSize,this.filter);
+                if (response.statusCode === 200 && response.data && response.data.result) {
+                    this.addJobs(response.data.result);
                 } else {
-                    console.error("Invalid response structure:", response.data);
+                    console.error("Invalid response structure:", response);
                 }
-            })
-            .catch((error) => {
-                console.log("Unable to reach server: " + error);
-            });
+            } catch (error) {
+                console.error("Error fetching jobs:", error);
+            }
+        },
+    },
+    async created() {
+        await this.loadJobs();
     },
 });
 </script>
@@ -127,6 +133,4 @@ img {
     border-top: 1px dashed #e0e0e0;
     margin: 0.5rem 0;
 }
-
-
 </style>
