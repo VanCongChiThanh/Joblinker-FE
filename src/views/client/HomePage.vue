@@ -11,7 +11,7 @@
     <!-- .site-mobile-menu -->
 
     <!-- NAVBAR -->
-    <NavBar />
+     <NavBar class="fixed-top" /> 
 
     <!-- HOME -->
     <section class="home-section section-hero overlay bg-image" style="background-image: url('../assets/images/hero_1.jpg')" id="home-section">
@@ -196,10 +196,10 @@ document.write(new Date().getFullYear());
 </template>
 
 <script>
-import joblist from "@/components/client/JobList/JobList.vue";
-import jobSearch from "@/components/client/JobSearch/JobSearch.vue";
-import NavBar from "@/views/client/NavBar.vue";
-import EmployerList from "@/components/client/Employers/EmployerList.vue";
+import joblist from "@/components/client/JobList.vue";
+import jobSearch from "@/components/client/JobSearch.vue";
+import NavBar from "@/components/client/NavBar.vue";
+import EmployerList from "@/components/client/EmployerList.vue";
 import { mapState } from "vuex";
 
 export default {

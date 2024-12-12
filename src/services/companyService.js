@@ -10,7 +10,7 @@ export const fetchCompanies = async (page = 1, size = 10, filter = "") => {
         filter,
       },
     });
-    return response.data; // Trả về dữ liệu từ API
+    return response.data;
   } catch (error) {
     console.error("Error fetching companies:", error);
     throw error; 

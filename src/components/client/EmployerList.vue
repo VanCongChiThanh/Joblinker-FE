@@ -21,57 +21,66 @@
         </div>
     </div>
     <div class="text-center mt-4">
-        <button @click="showMoreCompanies" class="btn custom-blue-btn">Show More Companies</button>
+      <button @click="showMoreCompanies" class="btn custom-blue-btn">Show More Companies</button>
     </div>
-</div>
+  </div>
 </template>
 
 <script>
-import {
-    defineComponent
-} from "vue";
-import {
-    mapState,
-    mapActions
-} from "vuex";
-import {
-    fetchCompanies
-} from "@/services/companyService";
+import { defineComponent } from "vue";
+import { mapState, mapActions } from "vuex";
+import { fetchCompanies } from "@/services/companyService";
 
 export default defineComponent({
-    name: "CompanyList",
-    data() {
-        return {
-            displayLimit: 6,
-        };
+  name: "CompanyList",
+  data() {
+    return {
+      page: 1, 
+      size: 3, 
+      isLoading: false, 
+    };
+  },
+  computed: {
+    ...mapState(["companies"]),
+    displayedCompanies() {
+      return this.companies; 
     },
-    computed: {
-        ...mapState(["companies"]),
-        displayedCompanies() {
-            return this.companies.slice(0, this.displayLimit);
-        },
+  },
+  methods: {
+    ...mapActions(["addCompanies"]),
+    async showMoreCompanies() {
+      if (this.isLoading) return; 
+      this.isLoading = true;
+      this.page += 1; 
+      try {
+        const response = await fetchCompanies(this.page, this.size);
+        if (response.statusCode === 200 && response.data && response.data.result) {
+          this.addCompanies(response.data.result); // Add new companies to Vuex store
+        } else {
+          console.error("Invalid response structure:", response);
+        }
+      } catch (error) {
+        console.error("Error fetching companies:", error);
+      } finally {
+        this.isLoading = false;
+      }
     },
-    methods: {
-        ...mapActions(["addCompanies"]),
-        showMoreCompanies() {
-            this.displayLimit += 6;
-        },
-        async fetchCompanies() {
-            try {
-                const response = await fetchCompanies(1, this.displayLimit);
-                if (response.statusCode === 200 && response.data && response.data.result) {
-                    this.addCompanies(response.data.result);
-                } else {
-                    console.error("Invalid response structure:", response);
-                }
-            } catch (error) {
-                console.error("Error fetching companies:", error);
-            }
-        },
+    async fetchCompanies() {
+      try {
+        const response = await fetchCompanies(this.page, this.size);
+        if (response.statusCode === 200 && response.data && response.data.result) {
+          this.addCompanies(response.data.result);
+        } else {
+          console.error("Invalid response structure:", response);
+        }
+      } catch (error) {
+        console.error("Error fetching companies:", error);
+      }
     },
-    created() {
-        this.fetchCompanies();
-    },
+  },
+  created() {
+    this.fetchCompanies();
+  },
 });
 </script>
 
@@ -80,9 +89,8 @@ export default defineComponent({
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /* Đảm bảo phần trên và dưới có không gian đều */
+
     flex-grow: 1;
-    /* Phần này chiếm không gian còn lại */
 }
 
 .card {

@@ -60,7 +60,7 @@ import {
 } from "vuex";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import JobDetails from "../JobDetails/JobDetails.vue";
+import JobDetails from "./JobDetails.vue";
 import {
     fetchJobs
 } from "@/services/jobService";

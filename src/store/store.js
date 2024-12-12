@@ -2,24 +2,24 @@ import { createStore } from "vuex";
 
 export default createStore({
   state: {
-    jobs: [], 
-    details: null, 
+    jobs: [],
+    details: null,
     companies: [],
   },
   mutations: {
     ADD_JOBS(state, jobs) {
-      state.jobs = jobs || []; 
+      state.jobs = [...state.jobs, ...jobs];
     },
-    ADD_DETAIL(state, detail) {
-      state.details = detail; 
+    SET_DETAIL(state, detail) {
+      state.details = detail;
     },
     ADD_COMPANIES(state, companies) {
-      state.companies = companies||[]; 
+      state.companies = [...state.companies, ...companies];
     },
   },
   actions: {
     addJobs({ commit }, jobs) {
-      commit("ADD_JOBS", jobs); 
+      commit("ADD_JOBS", jobs);
     },
     addDetail({ commit }, detail) {
       commit("ADD_DETAIL", detail);
