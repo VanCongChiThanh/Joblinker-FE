@@ -1,5 +1,5 @@
 <template>
-<div class="container py-4">
+<div class="container">
     <div class="row justify-content-center">
         <div class="col-md-4 col-sm-6 mb-4" v-for="company in displayedCompanies" :key="company.id">
             <div class="card h-100 shadow-sm border-0 d-flex flex-column justify-content-between text-center p-3">
@@ -21,65 +21,43 @@
         </div>
     </div>
     <div class="text-center mt-4">
-      <button @click="showMoreCompanies" class="btn custom-blue-btn">Show More Companies</button>
+        <button class="btn custom-blue-btn">Show More Companies</button>
     </div>
-  </div>
+</div>
 </template>
 
 <script>
 import { defineComponent } from "vue";
-import { mapState, mapActions } from "vuex";
-import { fetchCompanies } from "@/services/companyService";
+import { fetchTopCompanies } from "@/services/companyService";
 
 export default defineComponent({
   name: "CompanyList",
   data() {
     return {
-      page: 1, 
-      size: 3, 
-      isLoading: false, 
+      isLoading: false,
+      displayedCompanies: [], 
     };
   },
-  computed: {
-    ...mapState(["companies"]),
-    displayedCompanies() {
-      return this.companies; 
-    },
-  },
   methods: {
-    ...mapActions(["addCompanies"]),
-    async showMoreCompanies() {
+    async fetchCompanies() {
       if (this.isLoading) return; 
       this.isLoading = true;
-      this.page += 1; 
       try {
-        const response = await fetchCompanies(this.page, this.size);
-        if (response.statusCode === 200 && response.data && response.data.result) {
-          this.addCompanies(response.data.result); // Add new companies to Vuex store
+        const response = await fetchTopCompanies();
+        if (response.statusCode === 200 && response.data) {
+          this.displayedCompanies = response.data; 
         } else {
           console.error("Invalid response structure:", response);
         }
       } catch (error) {
-        console.error("Error fetching companies:", error);
+        console.error("Error fetching top companies:", error);
       } finally {
         this.isLoading = false;
       }
     },
-    async fetchCompanies() {
-      try {
-        const response = await fetchCompanies(this.page, this.size);
-        if (response.statusCode === 200 && response.data && response.data.result) {
-          this.addCompanies(response.data.result);
-        } else {
-          console.error("Invalid response structure:", response);
-        }
-      } catch (error) {
-        console.error("Error fetching companies:", error);
-      }
-    },
   },
   created() {
-    this.fetchCompanies();
+    this.fetchCompanies(); 
   },
 });
 </script>

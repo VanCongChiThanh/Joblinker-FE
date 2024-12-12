@@ -199,7 +199,7 @@ document.write(new Date().getFullYear());
 import joblist from "@/components/client/JobList.vue";
 import jobSearch from "@/components/client/JobSearch.vue";
 import NavBar from "@/components/client/NavBar.vue";
-import EmployerList from "@/components/client/EmployerList.vue";
+import EmployerList from "@/components/client/TopCompanies.vue";
 import { mapState } from "vuex";
 
 export default {
