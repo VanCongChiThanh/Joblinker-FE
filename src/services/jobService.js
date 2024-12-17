@@ -38,3 +38,12 @@ export const fetchJobDetails = async (jobId) => {
     return { content: [] };
   }
 };
+export const fetchTopJobs = async () => {
+  try {
+    const response = await apiClient.get("/jobs/top-jobs");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching top companies:", error);
+    throw error;
+  }
+};

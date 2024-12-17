@@ -6,7 +6,7 @@
         </button>
         <a class="navbar-brand" href="#">
             <div class="site-logo col-6">
-                <router-link to="/">JobLinker</router-link>
+                <router-link to="/" class="text-light">JobLinker</router-link>
             </div>
         </a>
 

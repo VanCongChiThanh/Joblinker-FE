@@ -2,6 +2,7 @@
 import { createRouter, createWebHistory } from "vue-router"; // Import các phương thức từ vue-router
 import Home from "@/components/client/Home.vue";
 import JobDetails from "@/components/client/JobDetails.vue";
+import LoginPage from "@/views/client/LoginPage.vue";
 
 const routes = [
   {
@@ -13,6 +14,11 @@ const routes = [
     path: "/position/:id",
     name: "description",
     component: JobDetails,
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component:LoginPage,
   }
 ];
 

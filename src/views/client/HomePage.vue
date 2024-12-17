@@ -11,7 +11,7 @@
     <!-- .site-mobile-menu -->
 
     <!-- NAVBAR -->
-     <NavBar class="fixed-top" /> 
+    <NavBar class="fixed-top" />
 
     <!-- HOME -->
     <section class="home-section section-hero overlay bg-image" style="background-image: url('../assets/images/hero_1.jpg')" id="home-section">
@@ -62,31 +62,17 @@
             </div>
         </div>
     </section>
-
-    <section class="site-section p-0" id="joblist">
-        <div class="container">
-            <div class="row my-3">
-                <div class="col-sm-5">
-                    <div class="top-job-hot-title d-flex align-items-center">
-                        <i class="fas fa-fire text-danger mr-2"></i>
-                        <h3 class="font-weight-bold text-primary">TOP JOB HOT</h3>
-                    </div>
-                    <div class="gradient-underline"></div>
-                </div>
+    <section class="site-section p-0 m-3" id="joblist">
+        <div class="container border rounded">
+            <div class="row my-3 mx-2">
+                <h4 class="font-weight-bold text-primary">Featured Companies</h4>
             </div>
             <div class="justify-content-center w-100">
-
-                <joblist />
+                <top-companies />
             </div>
         </div>
     </section>
-
-    <section class="site-section py-4 mb-5 border-top">
-        <h2 class="text-center mb-4">Top Employers</h2>
-        <employer-list />
-    </section>
-
-    <section class="bg-light pt-5 testimony-full">
+    <section class="bg-light testimony-full">
         <div class="owl-carousel single-carousel">
             <div class="container">
                 <div class="row">
@@ -117,6 +103,26 @@
         </div>
     </section>
 
+    <section class="site-section p-0 m-3" id="joblist">
+        <div class="container border rounded">
+            <div class="row my-3 mx-1">
+                <div class="col-12 d-flex align-items-center justify-content-between">
+                    <div class="top-job-hot-title ">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-fire text-danger mr-2"></i>
+                            <h5 class="font-weight-bold text-primary">Recommendation Jobs</h5>
+                        </div>
+                        <div class="gradient-underline"></div>
+                    </div>
+                    <a href="/all-jobs">View All</a>
+                </div>
+            </div>
+            <div class="justify-content-center w-100">
+                <top-jobs />
+            </div>
+        </div>
+    </section>
+
     <section class="py-5 bg-image overlay-primary fixed overlay" style="background-image: url('../assets/images/hero_1.jpg')">
         <div class="container">
             <div class="row align-items-center">
@@ -133,82 +139,27 @@
             </div>
         </div>
     </section>
-
-    <footer class="site-footer">
-        <div class="container">
-            <div class="row mb-5">
-                <div class="col-6 col-md-3 mb-4 mb-md-0">
-                    <h3>Search Trending</h3>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Web Design</a></li>
-                        <li><a href="#">Graphic Design</a></li>
-                        <li><a href="#">Web Developers</a></li>
-                        <li><a href="#">Python</a></li>
-                        <li><a href="#">HTML5</a></li>
-                        <li><a href="#">CSS3</a></li>
-                    </ul>
-                </div>
-                <div class="col-6 col-md-3 mb-4 mb-md-0">
-                    <h3>Company</h3>
-                    <ul class="list-unstyled">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Career</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Resources</a></li>
-                    </ul>
-                </div>
-                <div class="col-6 col-md-3 mb-4 mb-md-0">
-                    <h3>Support</h3>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Support</a></li>
-                        <li><a href="#">Privacy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
-                </div>
-                <div class="col-6 col-md-3 mb-4 mb-md-0">
-                    <h3>Contact Us</h3>
-                    <div class="footer-social">
-                        <a href="#"><span class="icon-facebook"></span></a>
-                        <a href="#"><span class="icon-twitter"></span></a>
-                        <a href="#"><span class="icon-instagram"></span></a>
-                        <a href="#"><span class="icon-linkedin"></span></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row text-center">
-                <div class="col-12">
-                    <p>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        <!-- Copyright &copy;
-
-<script>
-document.write(new Date().getFullYear());
-</script> All rights reserved | This template is made with <i
-                class="icon-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> -->
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
+<Footer/>
+   
 </div>
 </template>
 
 <script>
-import joblist from "@/components/client/JobList.vue";
+import TopJobs from "@/components/client/TopJobs.vue";
 import jobSearch from "@/components/client/JobSearch.vue";
 import NavBar from "@/components/client/NavBar.vue";
-import EmployerList from "@/components/client/TopCompanies.vue";
+import TopCompanies from "@/components/client/TopCompanies.vue";
+import Footer from "@/components/client/SiteFooter.vue";
 import { mapState } from "vuex";
 
 export default {
   name: "HomePage",
   components: {
-    joblist,
     jobSearch,
     NavBar,
-    EmployerList,
+    TopCompanies,
+    TopJobs,
+    Footer
   },
   methods:{
     ...mapState(["jobs","companies"])
@@ -218,7 +169,7 @@ export default {
 
 <style scoped>
 .top-job-hot-title {
-    font-size: 2.5rem;
+    font-size: 2rem;
 }
 
 .gradient-underline {
