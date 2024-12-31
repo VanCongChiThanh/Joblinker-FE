@@ -20,26 +20,67 @@
                 </li>
             </ul>
             <div class="form-inline my-2 my-lg-0">
-                <router-link to="/login" class="text-white">
-                    Login / Sign up
-                </router-link>
+                <template v-if="isAuthenticated">
+                    <div class="nav-item d-flex align-items-center">
+                        <img :src="`http://localhost:8080/storage/avatar/${user.email}`+'.jpg'" style="width: 2.5rem; height: 2.5rem; object-fit: cover; border-radius: 50%;" />
+                        <div class="dropdown">
+                            <a href="#" class="dropdown-toggle mx-2 text-white" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span>{{ user.name }}</span>
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Dashboard</a>
+                                <a class="dropdown-item" href="#" @click="handleLogout">Sign out</a>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                <template v-else>
+                    <router-link to="/login" class="text-white">
+                        Login / Sign up
+                    </router-link>
+                </template>
             </div>
         </div>
     </div>
 </nav>
 </template>
 
+<script>
+import {
+    mapState
+} from "vuex";
+
+export default {
+    name: "NavBar",
+    computed: {
+        ...mapState(["status", "user"]),
+        isAuthenticated() {
+            return this.status.loggedIn;
+        },
+    },
+    methods: {
+        handleLogout() {
+            this.$store.dispatch("logout");
+            this.$router.push("/"); 
+        },
+    },
+    created() {
+        this.$store.dispatch("checkAuthentication");
+    },
+};
+</script>
+
 <style scoped>
 .site-logo {
-  font-size: 1.4rem; 
-  font-weight: bold; 
-  color: #ffffff; 
-  text-transform: uppercase; 
-  letter-spacing: 2px; 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.3s ease-in-out; 
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease-in-out;
 }
 
 .navbar {
@@ -47,18 +88,22 @@
     border-bottom: 0.5px solid #202166;
 }
 
-.nav-link{
-  color: #ffffff !important;
-  font-weight: bold; 
+.nav-link {
+    color: #ffffff !important;
+    font-weight: bold;
 }
 
 .navbar-toggler-icon {
-  background-color: #ffffff; 
+    background-color: #ffffff;
 }
 
 .btn-light {
-  color: #ffffff;
-  font-weight: bold;
-  text-transform: uppercase;
+    color: #ffffff;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.nav-item img {
+    cursor: pointer;
 }
 </style>
