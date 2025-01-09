@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from "vue-router"; // Import các phư
 import Home from "@/components/client/Home.vue";
 import JobDetails from "@/components/client/JobDetails.vue";
 import LoginPage from "@/views/client/LoginPage.vue";
-
+import RegisterPage from "@/views/client/RegisterPage.vue";
 const routes = [
   {
     path: "/",
@@ -16,10 +16,20 @@ const routes = [
     component: JobDetails,
   },
   {
-    path: '/login',
-    name: 'login',
-    component:LoginPage,
-  }
+    path: "/login",
+    name: "login",
+    component: LoginPage,
+  },
+  {
+    path: "/register",
+    name: "register",
+    component: RegisterPage,
+  },
+  {
+    path: "/search",
+    name: "searchpage",
+    component: () => import("@/views/client/SearchPage.vue"),
+  },
 ];
 
 const router = createRouter({

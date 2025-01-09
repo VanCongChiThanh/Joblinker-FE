@@ -9,36 +9,48 @@
                 <router-link to="/" class="text-light">JobLinker</router-link>
             </div>
         </a>
-
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item ">
-                    <a class="nav-link" href="#">All Jobs</a>
+                    <a class="nav-link" href="/search">All Jobs</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">IT Companies</a>
                 </li>
             </ul>
+            <router-link to="/" class="text-white mr-2">For Employers</router-link>
             <div class="form-inline my-2 my-lg-0">
                 <template v-if="isAuthenticated">
                     <div class="nav-item d-flex align-items-center">
-                        <img :src="`http://localhost:8080/storage/avatar/${user.email}`+'.jpg'" style="width: 2.5rem; height: 2.5rem; object-fit: cover; border-radius: 50%;" />
+                        <div style="width: 2.7rem; height: 2.7rem; border-radius: 50%; background: linear-gradient(45deg, #ff6b6b, #f5a623, #27ae60, #3498db); padding: 0.1rem;">
+                            <img :src="`http://localhost:8080/storage/avatar/${user.email}.jpg`" @error="setDefaultAvatar" style="width: 2.5rem; height: 2.5rem; object-fit: cover; border-radius: 50%; background-color: white;" />
+
+                        </div>
+
                         <div class="dropdown">
                             <a href="#" class="dropdown-toggle mx-2 text-white" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span>{{ user.name }}</span>
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Dashboard</a>
-                                <a class="dropdown-item" href="#" @click="handleLogout">Sign out</a>
+                                <a class="dropdown-item" href="#"><i class="fas fa-th-large mr-1"></i>Dashboard</a>
+                                <a class="dropdown-item" href="#"><i class="fa-regular fa-user mr-1"></i>Profile</a>
+                                <a class="dropdown-item" href="#"><i class="fas fa-suitcase mr-1"></i>My jobs</a>
+                                <a class="dropdown-item" href="#"><i class="fa-solid fa-inbox mr-1"></i>Job Invitation</a>
+                                <a class="dropdown-item" href="#"><i class="fa-regular fa-envelope mr-1"></i>Email Subscriptions</a>
+                                <a class="dropdown-item" href="#" @click="handleLogout"><i class="fa-solid fa-arrow-right-from-bracket mr-1"></i>Sign out</a>
                             </div>
+
                         </div>
                     </div>
                 </template>
                 <template v-else>
-                    <router-link to="/login" class="text-white">
-                        Login / Sign up
+                    <router-link to="/login" class="text-white mr-2">
+                        Sign in / Sign up
                     </router-link>
                 </template>
+            </div>
+            <div class="language">
+                <span class="text-white">EN</span> | VI
             </div>
         </div>
     </div>
@@ -46,29 +58,40 @@
 </template>
 
 <script>
-import {
-    mapState
-} from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
     name: "NavBar",
     computed: {
-        ...mapState(["status", "user"]),
+        ...mapState("auth", ["status", "user"]),
         isAuthenticated() {
-            return this.status.loggedIn;
+            // Kiểm tra trạng thái xác thực
+            return this.status.loggedIn && this.user !== null;
         },
     },
     methods: {
-        handleLogout() {
-            this.$store.dispatch("logout");
-            this.$router.push("/"); 
+        ...mapActions("auth", ["logout", "checkAuthentication"]),
+        async handleLogout() {
+            try {
+                await this.logout();
+                this.$router.push("/"); 
+            } catch (error) {
+                console.error("Logout failed:", error);
+                alert("Failed to log out. Please try again.");
+            }
         },
     },
-    created() {
-        this.$store.dispatch("checkAuthentication");
+    async created() {
+        try {
+            await this.checkAuthentication();
+        } catch (error) {
+            console.error("Failed to check authentication:", error);
+            this.$router.push("/login"); // Chuyển hướng đến trang đăng nhập nếu xác thực thất bại
+        }
     },
 };
 </script>
+
 
 <style scoped>
 .site-logo {
@@ -89,8 +112,11 @@ export default {
 }
 
 .nav-link {
-    color: #ffffff !important;
+    color: #89898a !important;
     font-weight: bold;
+}
+.nav-link:hover{
+    color:white!important; 
 }
 
 .navbar-toggler-icon {

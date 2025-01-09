@@ -1,6 +1,6 @@
 <template>
 <div class="mb-5 p-3 bg-light rounded">
-    <div v-if="jobs.length > 0">
+    <div v-if="jobs && jobs.length > 0">
         <div class="row">
             <div class="col-sm-5 fixed-height">
                 <div class="job-list">
@@ -54,16 +54,9 @@
 import {
     defineComponent
 } from "vue";
-import {
-    mapState,
-    mapActions
-} from "vuex";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import JobDetails from "./JobDetails.vue";
-import {
-    fetchJobs
-} from "@/services/jobService";
 
 dayjs.extend(relativeTime);
 
@@ -74,39 +67,23 @@ export default defineComponent({
     },
     data() {
         return {
-            currentPage: 1,
-            pageSize: 4,
-            filter: "name~''",
-            selectedJob: null,
+            selectedJob: null
         };
     },
-    computed: {
-        ...mapState(["jobs"]),
+    props: {
+        jobs: {
+            type: Array,
+            required: true
+        }
     },
     methods: {
-        ...mapActions(["addJobs"]),
-        selectJob(job) {
-            this.selectedJob = job;
-        },
         timeAgo(date) {
             return dayjs(date).fromNow();
         },
-        async loadJobs() {
-            try {
-                const response = await fetchJobs(this.currentPage, this.pageSize,this.filter);
-                if (response.statusCode === 200 && response.data && response.data.result) {
-                    this.addJobs(response.data.result);
-                } else {
-                    console.error("Invalid response structure:", response);
-                }
-            } catch (error) {
-                console.error("Error fetching jobs:", error);
-            }
+        selectJob(job) {
+            this.selectedJob = job;
         },
-    },
-    async created() {
-        await this.loadJobs();
-    },
+    }
 });
 </script>
 

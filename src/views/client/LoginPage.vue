@@ -6,7 +6,7 @@
             <div class="banner col-6">
                 <h1 class="mt-2 mb-5 ">Xây dựng <b>Sự nghiệp<br><span class="text-primary">thành công</span></b> cùng<br>joblinker.vn</h1>
             </div>
-            <div class="login-container col-6 bg-primary p-3">
+            <div class="login-container col-6  p-3">
                 <div class="login-form mx-auto">
                     <h5 class="text-center text-dark mb-3">Người tìm việc đăng nhập</h5>
                     <form @submit.prevent="handleLogin">
@@ -33,7 +33,7 @@
                             </button>
                         </div>
                         <p class="text-center mt-3">
-                            Chưa có tài khoản? <a href="#">Đăng ký</a>
+                            Chưa có tài khoản? <a href="/register">Đăng ký</a>
                         </p>
                     </form>
                 </div>
@@ -64,7 +64,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["login"]),
+    ...mapActions("auth",["login"]),
     async handleLogin() {
       try {
          await this.login({
@@ -109,15 +109,21 @@ body {
     align-items: center;
     flex: 1;
     padding: 20px 0;
+
 }
 
 .login-form {
     background-color: white;
     padding: 30px;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); 
     width: 100%;
     max-width: 350px;
+    transition: box-shadow 0.3s ease; 
+}
+
+.login-form:hover {
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5); 
 }
 
 .form-group {

@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-4 mb-lg-0">
-                    <input v-model="jobTitle" type="text" class="form-control form-control-lg" placeholder="Job title, keywords...">
+                    <input v-model="keyword" type="text" class="form-control form-control-lg" placeholder="Job title, keywords...">
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 col-lg-2 mb-4 mb-lg-0">
                     <button type="submit" class="btn btn-primary btn-lg btn-block text-white btn-search"><span class="icon-search icon mr-2"></span>Search Job</button>
@@ -42,11 +42,10 @@
                     <div class="col-12 col-lg-10">
                         <div class="d-flex flex-wrap align-items-center">
                             <h5 class="mr-3">Suggestions for you:</h5>
-                            <button type="button" class="btn btn-outline-light rounded-pill mr-2">Java</button>
-                            <button type="button" class="btn btn-outline-light rounded-pill mr-2">ReactJS</button>
-                            <button type="button" class="btn btn-outline-light rounded-pill mr-2">.NET</button>
-                            <button type="button" class="btn btn-outline-light rounded-pill mr-2">Tester</button>
-                            <button type="button" class="btn btn-outline-light rounded-pill mr-2">PHP</button>
+                            <a href="/search?keyword=java" class="btn btn-outline-light rounded-pill mr-2">Java</a>
+                            <a href="/search?keyword=.net" class="btn btn-outline-light rounded-pill mr-2">.Net</a>
+                            <a href="/search?keyword=tester" class="btn btn-outline-light rounded-pill mr-2">Tester</a>
+                            <a href="/search?keyword=react" class="btn btn-outline-light rounded-pill mr-2">React.JS</a>
                         </div>
                     </div>
                     <div class="col-lg-1"></div>
@@ -59,52 +58,28 @@
 </template>
 
 <script>
-import axios from "axios";
-import {
-    defineComponent
-} from "vue";
-import {
-    mapState,
-    mapActions
-} from "vuex";
-
-export default defineComponent({
+export default {
     name: "JobSearch",
-
     data() {
         return {
-            jobTitle: "",
-            jobLocation: ""
+            keyword: '',
         };
     },
-
-    watch: {
-        jobTitle(value) {
-            this.jobTitle = value;
-        },
-        jobLocation(value) {
-            this.jobLocation = value;
-        }
-    },
-
-    computed: {
-        ...mapState(["jobs"])
-    },
-
     methods: {
-        ...mapActions(["addJobs"]),
-
-        searchJobs() {
-            this.$router.replace("/#joblist");
-            axios
-                .get(`https://jobs.github.com/positions.json?search=${this.jobTitle}&location=${this.jobLocation}`)
-                .then((response) => {
-                    this.addJobs(response.data);
-                })
-                .catch((error) => {
-                    console.log("Unable to reach server: " + error);
+        async searchJobs() {
+            if (this.keyword.trim()) {
+                this.$router.push({
+                    name: 'searchpage',
+                    query: {
+                        keyword: this.keyword
+                    }
                 });
-        }
-    }
-});
+            } else {
+                this.$router.push({
+                    name: 'searchpage'
+                });
+            }
+        },
+    },
+};
 </script>

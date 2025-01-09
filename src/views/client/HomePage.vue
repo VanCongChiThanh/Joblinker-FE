@@ -16,7 +16,6 @@
     <!-- HOME -->
     <section class="home-section section-hero overlay bg-image" style="background-image: url('../assets/images/hero_1.jpg')" id="home-section">
         <div class="container">
-            <!-- Search -->
             <jobSearch />
         </div>
     </section>
@@ -41,7 +40,7 @@
 
                 <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
                     <div class="d-flex align-items-center justify-content-center mb-2">
-                        <strong class="number">{{jobs().length}}</strong>
+                        <strong class="number">0</strong>
                     </div>
                     <span class="caption">Jobs Posted</span>
                 </div>
@@ -55,7 +54,7 @@
 
                 <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
                     <div class="d-flex align-items-center justify-content-center mb-2">
-                        <strong class="number">{{ companies().length }}</strong>
+                        <strong class="number">0</strong>
                     </div>
                     <span class="caption">Companies</span>
                 </div>
@@ -72,37 +71,24 @@
             </div>
         </div>
     </section>
-    <section class="bg-light testimony-full">
-        <div class="owl-carousel single-carousel">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 mx-auto">
-                        <img class="img-fluid mx-auto" src="../../assets/images/ste.jpg" alt="Image" />
-                        <blockquote>
-                            <p>
-                                &ldquo;Cách duy nhất để làm tốt công việc là yêu thích những gì bạn làm. Nếu bạn chưa tìm ra nó, hãy tiếp tục tìm kiếm. Đừng dừng lại..&rdquo;
-                            </p>
-                            <p><cite> &mdash; Steve Jobs</cite></p>
-                        </blockquote>
-                    </div>
-                </div>
+    <div id="adsCarousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner text-center">
+            <div class="carousel-item active">
+                <img src="../../../public/assets/images/ads_1.jpg" class="d-block mx-auto" style="width: 800px; height: 300px; object-fit: cover;" alt="Slide 1">
             </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 mx-auto">
-                        <img class="img-fluid mx-auto" src="../../assets/images/musk.jpg" alt="Image" />
-                        <blockquote>
-                            <p>
-                                &ldquo;Đầu tư vào bản thân bạn là khoản đầu tư tốt nhất mà bạn có thể thực hiện. Bất cứ điều gì bạn làm để cải thiện kỹ năng hoặc hiểu biết của mình đều sẽ mang lại lợi ích trong tương lai..&rdquo;
-                            </p>
-                            <p><cite> &mdash; Elon Musk</cite></p>
-                        </blockquote>
-                    </div>
-                </div>
+            <div class="carousel-item">
+                <img src="../../../public/assets/images/ads_2.jpg" class="d-block mx-auto" style="width: 800px; height: 300px; object-fit: cover;" alt="Slide 2">
             </div>
         </div>
-    </section>
-
+        <a class="carousel-control-prev" href="#adsCarousel" role="button" data-slide="prev" style="top: 50%; transform: translateY(-50%); color: black;">
+            <span class="carousel-control-prev-icon" style="background-color: black; border-radius: 50%; opacity: 0.8;"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#adsCarousel" role="button" data-slide="next" style="top: 50%; transform: translateY(-50%); color: black;">
+            <span class="carousel-control-next-icon" style="background-color: black; border-radius: 50%; opacity: 0.8;"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
     <section class="site-section p-0 m-3" id="joblist">
         <div class="container border rounded">
             <div class="row my-3 mx-1">
@@ -114,7 +100,7 @@
                         </div>
                         <div class="gradient-underline"></div>
                     </div>
-                    <a href="/all-jobs">View All</a>
+                    <a href="/search">View All</a>
                 </div>
             </div>
             <div class="justify-content-center w-100">
@@ -139,8 +125,8 @@
             </div>
         </div>
     </section>
-<Footer/>
-   
+    <Footer />
+
 </div>
 </template>
 
@@ -150,20 +136,22 @@ import jobSearch from "@/components/client/JobSearch.vue";
 import NavBar from "@/components/client/NavBar.vue";
 import TopCompanies from "@/components/client/TopCompanies.vue";
 import Footer from "@/components/client/SiteFooter.vue";
-import { mapState } from "vuex";
+import {
+    mapState
+} from "vuex";
 
 export default {
-  name: "HomePage",
-  components: {
-    jobSearch,
-    NavBar,
-    TopCompanies,
-    TopJobs,
-    Footer
-  },
-  methods:{
-    ...mapState(["jobs","companies"])
-  }
+    name: "HomePage",
+    components: {
+        jobSearch,
+        NavBar,
+        TopCompanies,
+        TopJobs,
+        Footer
+    },
+    methods: {
+        ...mapState(["jobs", "companies"])
+    }
 };
 </script>
 
