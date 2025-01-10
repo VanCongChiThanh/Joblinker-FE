@@ -1,7 +1,6 @@
 // router/router.js
-import { createRouter, createWebHistory } from "vue-router"; // Import các phương thức từ vue-router
+import { createRouter, createWebHistory } from "vue-router"; 
 import Home from "@/components/client/Home.vue";
-import JobDetails from "@/components/client/JobDetails.vue";
 import LoginPage from "@/views/client/LoginPage.vue";
 import RegisterPage from "@/views/client/RegisterPage.vue";
 const routes = [
@@ -9,11 +8,6 @@ const routes = [
     path: "/",
     name: "home",
     component: Home,
-  },
-  {
-    path: "/position/:id",
-    name: "description",
-    component: JobDetails,
   },
   {
     path: "/login",
@@ -30,6 +24,11 @@ const routes = [
     name: "searchpage",
     component: () => import("@/views/client/SearchPage.vue"),
   },
+  {
+    path: "/job-detail/:id",
+    name: "job-detail",
+    component: () => import("@/views/client/JobDetail.vue"),
+  },
 ];
 
 const router = createRouter({
@@ -37,14 +36,12 @@ const router = createRouter({
   routes, 
 });
 
-// Cấu hình scrollBehavior
 router.scrollBehavior = function (to) {
   if (to.hash) {
     return {
-      el: to.hash, // Cập nhật để sử dụng el thay vì selector
+      el: to.hash, 
     };
   }
 };
 
-// Xuất router
 export default router;

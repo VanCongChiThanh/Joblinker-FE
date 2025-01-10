@@ -1,5 +1,5 @@
 <template>
-<div class="mb-5 p-3 bg-light rounded">
+<div class="mb-4 p-3 bg-light rounded">
     <div v-if="jobs && jobs.length > 0">
         <div class="row">
             <div class="col-sm-5 fixed-height">
@@ -10,7 +10,12 @@
                                 <span class="text-muted">{{ timeAgo(job.createdAt) }}</span>
                                 <span class="badge badge-primary px-2 py-1">{{ job.level }}</span>
                             </div>
-                            <h3 class="job-title font-weight-bold mb-2">{{ job.name }}</h3>
+                            <h3 class="job-title font-weight-bold mb-2">
+                                <router-link :to="{ name: 'job-detail', params: { id: job.id } }">
+                                    {{ job.name }}
+                                </router-link>
+                            </h3>
+
                             <div class="company d-flex align-items-center mb-2">
                                 <img :src="`http://localhost:8080/storage/companyLogo/${job.company.logo}`" class="logo mr-2 rounded" alt="Company Logo" />
                                 <span class="font-weight-bold">{{ job.company.name }}</span>
@@ -56,7 +61,7 @@ import {
 } from "vue";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import JobDetails from "./JobDetails.vue";
+import JobDetails from "./JobPreview.vue";
 
 dayjs.extend(relativeTime);
 

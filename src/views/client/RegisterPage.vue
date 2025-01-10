@@ -4,73 +4,63 @@
     <div class="container-fluid" style="padding: 200px 0 150px 0">
         <div class="d-flex justify-content-center align-items-center vh-100">
             <div class="form p-4">
-                <h1 class="text-center mb-4 font-weight-bold">Đăng ký tài khoản</h1>
+                <h1 class="text-center mb-4 font-weight-bold">Sign up</h1>
 
-                <!-- Điều khoản -->
                 <div class="form-group">
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="agreeGoogleTerms" />
                         <label class="custom-control-label" for="agreeGoogleTerms">
-                            Bằng việc đăng ký bằng tài khoản Google, bạn đồng ý với các
-                            <a href="#" class="text-primary">Điều khoản dịch vụ</a> và
-                            <a href="#" class="text-primary">Chính sách quyền riêng tư</a>.
+                            By signing up with Google, I agree to Joblinker's
+                            <a href="#" class="text-primary">Terms & Conditions </a> and
+                            <a href="#" class="text-primary">Privacy Policy</a>
+                            in relation to your privacy information.
                         </label>
                     </div>
                 </div>
 
-                <!-- Nút đăng ký Google -->
                 <button class="btn btn-danger btn-block mb-3 d-flex align-items-center justify-content-center">
                     <i class="fab fa-google mr-2"></i>
-                    Đăng ký bằng Google
+                    Sign up with Google
                 </button>
 
-                <div class="text-center text-muted my-3">HOẶC</div>
+                <div class="text-center text-muted my-3">OR</div>
 
-                <!-- Form đăng ký -->
                 <form @submit.prevent="register">
-                    <!-- Họ và Tên -->
                     <div class="form-group">
-                        <label for="fullName">Họ và Tên</label>
-                        <input type="text" id="fullName" class="form-control" placeholder="Nhập họ và tên" v-model="name" required />
+                        <label for="fullName">Your name <span style="color: red;">*</span></label>
+                        <input type="text" id="fullName" class="form-control" placeholder="Enter your name" v-model="name" required />
                     </div>
 
-                    <!-- Email -->
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" class="form-control" placeholder="Nhập email" v-model="email" required />
+                        <label for="fullName">Email <span style="color: red;">*</span></label>
+                        <input type="email" id="email" class="form-control" placeholder="Enter your email" v-model="email" required />
                     </div>
 
-                    <!-- Mật khẩu -->
                     <div class="form-group">
-                        <label for="password">Mật khẩu</label>
-                        <input type="password" id="password" class="form-control" placeholder="Nhập mật khẩu" v-model="password" required />
+                        <label for="password">Mật khẩu<span style="color: red;">*</span></label>
+                        <input type="password" id="password" class="form-control" placeholder="Enter password" v-model="password" required />
                         <small class="form-text text-muted">
-                            Ít nhất 12 ký tự, 1 ký tự đặc biệt (! @ # $ ...), 1 số, 1 chữ viết
-                            hoa, và 1 chữ viết thường.
+                            At least 12 characters, 1 sympols (! @ # $ ...), 1 number, 1 uppercase letter, và 1 lowercase letter.
                         </small>
                     </div>
 
-                    <!-- Điều khoản dịch vụ -->
                     <div class="form-group">
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="agreeTerms" v-model="agreeTerms" required />
                             <label class="custom-control-label" for="agreeTerms">
-                                Tôi đã đọc và đồng ý với các
-                                <a href="#" class="text-primary">Điều khoản dịch vụ</a> và
-                                <a href="#" class="text-primary">Chính sách quyền riêng tư</a>.
+                                I have read and agree to Joblinker's
+                                <a href="#" class="text-primary">Terms & Condition</a> and
+                                <a href="#" class="text-primary">Privacy Policy</a>.
                             </label>
                         </div>
                     </div>
 
-                    <!-- Nút đăng ký -->
                     <button type="submit" class="btn btn-primary btn-block" :disabled="!agreeTerms">
-                        Đăng ký bằng Email
+                        Sign up with Email
                     </button>
                 </form>
-
-                <!-- Đăng nhập -->
-                <p class="text-center text-muted mt-3">
-                    Bạn đã có tài khoản? <a href="/login" class="text-primary">Đăng nhập ngay!</a>
+                <p class="text-center mt-3">
+                    Already have an account? <a href="/login" class="text-primary"> Sign in now!</a>
                 </p>
             </div>
         </div>
@@ -98,7 +88,7 @@ export default {
         };
     },
     methods: {
-async register() {
+        async register() {
             if (!this.agreeTerms) {
                 alert("Bạn cần đồng ý với điều khoản để tiếp tục.");
                 return;

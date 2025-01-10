@@ -15,6 +15,28 @@
             </h3>
         </div>
         <job-list :jobs="jobs" :keyword="keyword" />
+        <div v-if="meta && meta.pages > 1" class="pagination d-flex justify-content-center mb-5">
+            <button 
+                :disabled="currentPage === 1" 
+                @click="loadPage(currentPage - 1)"
+                class="btn-outline">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <span v-for="page in meta.pages" :key="page" class="mx-1">
+                <button 
+                    :class="{'btn-primary': currentPage === page, 'btn-outline-primary': currentPage !== page}" 
+                    class="btn"
+                    @click="loadPage(page)">
+                    {{ page }}
+                </button>
+            </span>
+            <button 
+                :disabled="currentPage === meta.pages" 
+                @click="loadPage(currentPage + 1)"
+                class="btn-outline">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
     </section>
     <Footer />
 </div>

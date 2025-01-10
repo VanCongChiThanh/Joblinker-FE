@@ -1,104 +1,101 @@
 <template>
-  <div class="container mb-4">
-    <swiper
-      :slidesPerView="1"
-      :spaceBetween="30"
-      :loop="true"
-      :pagination="{ clickable: true }"
-      :navigation="true"
-      :modules="modules"
-      class="mySwiper"
-    >
-      <!-- Mỗi slide chứa 6 job -->
-      <swiper-slide v-for="(chunk, index) in jobChunks" :key="index">
-        <div class="job-container d-flex flex-wrap justify-content-between">
-          <div
-            v-for="job in chunk"
-            :key="job.id"
-            class="job-item card h-100 shadow-sm border p-3"
-          >
-            <div class="d-flex align-items-center">
-              <img
-                :src="`http://localhost:8080/storage/companyLogo/${job.company.logo}`"
-                alt="Company Logo"
-                class="img-fluid"
-                style="width: 60px; height: 60px; object-fit: contain;"
-              />
-              <div class="d-flex flex-column ms-2 ml-2" style="width: calc(100% - 100px);">
-                <h5 class="text-truncate mb-1">
-                  <a href="#" class="font-weight-bold text-dark">{{ job.name }}</a>
-                </h5>
-                <p class="mb-0 text-truncate" >{{ job.company.name }}</p>
-                <p class="salary text-danger mb-0">
-                  <i class="fas fa-dollar-sign"></i> {{ job.salary || 'Thương lượng' }}
-                </p>
-                <div class="location" style="font-size: 0.85rem;">
-                  <i class="fas fa-location-dot mr-2"></i>{{ job.location }}
+<div class="container mb-4">
+    <swiper :slidesPerView="1" :spaceBetween="30" :loop="true" :pagination="{ clickable: true }" :navigation="true" :modules="modules" class="mySwiper">
+        <!-- Mỗi slide chứa 6 job -->
+        <swiper-slide v-for="(chunk, index) in jobChunks" :key="index">
+            <div class="job-container d-flex flex-wrap justify-content-between">
+                <div v-for="job in chunk" :key="job.id" class="job-item card h-100 shadow-sm border p-3">
+                    <div class="d-flex align-items-center">
+                        <img :src="`http://localhost:8080/storage/companyLogo/${job.company.logo}`" alt="Company Logo" class="img-fluid" style="width: 60px; height: 60px; object-fit: contain;" />
+                        <div class="d-flex flex-column ms-2 ml-2" style="width: calc(100% - 100px);">
+                            <h5 class="text-truncate mb-1">
+                                <a href="#" class="font-weight-bold text-dark">
+                                    <router-link :to="{ name: 'job-detail', params: { id: job.id } }">
+                                        {{ job.name }}
+                                    </router-link>
+                                </a>
+                            </h5>
+                            <p class="mb-0 text-truncate">{{ job.company.name }}</p>
+                            <p class="salary text-danger mb-0">
+                                <i class="fas fa-dollar-sign"></i> {{ job.salary || 'Thương lượng' }}
+                            </p>
+                            <div class="location" style="font-size: 0.85rem;">
+                                <i class="fas fa-location-dot mr-2"></i>{{ job.location }}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
-        </div>
-      </swiper-slide>
+        </swiper-slide>
     </swiper>
-  </div>
+</div>
 </template>
 
-
-
 <script>
-import { defineComponent } from "vue";
-import { fetchTopJobs } from "@/services/jobService";
-import { Swiper, SwiperSlide } from 'swiper/vue';
+import {
+    defineComponent
+} from "vue";
+import {
+    fetchTopJobs
+} from "@/services/jobService";
+import {
+    Swiper,
+    SwiperSlide
+} from 'swiper/vue';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import { Pagination, Navigation } from 'swiper/modules';
+import {
+    Pagination,
+    Navigation
+} from 'swiper/modules';
 
 export default defineComponent({
-  name: "TopJobs",
-  components: { Swiper, SwiperSlide },
-  data() {
-    return {
-      isLoading: false,
-      displayedJobs: [],
-      modules: [Pagination, Navigation],
-    };
-  },
-  computed: {
-    jobChunks() {
-      const chunkSize = 6;
-      const chunks = [];
-      for (let i = 0; i < this.displayedJobs.length; i += chunkSize) {
-        chunks.push(this.displayedJobs.slice(i, i + chunkSize));
-      }
-      return chunks;
+    name: "TopJobs",
+    components: {
+        Swiper,
+        SwiperSlide
     },
-  },
-  methods: {
-    async fetchJobs() {
-      if (this.isLoading) return;
-      this.isLoading = true;
-      try {
-        const response = await fetchTopJobs();
-        if (response.statusCode === 200 && response.data) {
-          this.displayedJobs = response.data;
-        } else {
-          console.error("Invalid response structure:", response);
-        }
-      } catch (error) {
-        console.error("Error fetching top jobs:", error);
-      } finally {
-        this.isLoading = false;
-      }
+    data() {
+        return {
+            isLoading: false,
+            displayedJobs: [],
+            modules: [Pagination, Navigation],
+        };
     },
-  },
-  created() {
-    this.fetchJobs();
-  },
+    computed: {
+        jobChunks() {
+            const chunkSize = 6;
+            const chunks = [];
+            for (let i = 0; i < this.displayedJobs.length; i += chunkSize) {
+                chunks.push(this.displayedJobs.slice(i, i + chunkSize));
+            }
+            return chunks;
+        },
+    },
+    methods: {
+        async fetchJobs() {
+            if (this.isLoading) return;
+            this.isLoading = true;
+            try {
+                const response = await fetchTopJobs();
+                if (response.statusCode === 200 && response.data) {
+                    this.displayedJobs = response.data;
+                } else {
+                    console.error("Invalid response structure:", response);
+                }
+            } catch (error) {
+                console.error("Error fetching top jobs:", error);
+            } finally {
+                this.isLoading = false;
+            }
+        },
+    },
+    created() {
+        this.fetchJobs();
+    },
 });
 </script>
-
 
 <style scoped>
 .card-body {
@@ -146,30 +143,30 @@ export default defineComponent({
     background-color: #007bff;
     color: white;
 }
+
 .job-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px; 
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 .job-item {
-  flex: 1 1 30%; 
-  max-width: 33%; 
-  box-sizing: border-box; 
+    flex: 1 1 30%;
+    max-width: 33%;
+    box-sizing: border-box;
 }
 
 @media (max-width: 1024px) {
-  .job-item {
-    flex: 1 1 40%; 
-    max-width: 50%;
-  }
+    .job-item {
+        flex: 1 1 40%;
+        max-width: 50%;
+    }
 }
 
 @media (max-width: 768px) {
-  .job-item {
-    flex: 1 1 90%; 
-    max-width: 99%;
-  }
+    .job-item {
+        flex: 1 1 90%;
+        max-width: 99%;
+    }
 }
-
 </style>
