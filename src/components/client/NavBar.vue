@@ -32,8 +32,7 @@
                                 <span>{{ user.name }}</span>
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#"><i class="fas fa-th-large mr-1"></i>Dashboard</a>
-                                <a class="dropdown-item" href="#"><i class="fa-regular fa-user mr-1"></i>Profile</a>
+                                <a class="dropdown-item" href="/dashboard"><i class="fas fa-th-large mr-1"></i>Dashboard</a>
                                 <a class="dropdown-item" href="#"><i class="fas fa-suitcase mr-1"></i>My jobs</a>
                                 <a class="dropdown-item" href="#"><i class="fa-solid fa-inbox mr-1"></i>Job Invitation</a>
                                 <a class="dropdown-item" href="#"><i class="fa-regular fa-envelope mr-1"></i>Email Subscriptions</a>
@@ -58,14 +57,16 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import {
+    mapState,
+    mapActions
+} from "vuex";
 
 export default {
     name: "NavBar",
     computed: {
         ...mapState("auth", ["status", "user"]),
         isAuthenticated() {
-            // Kiểm tra trạng thái xác thực
             return this.status.loggedIn && this.user !== null;
         },
     },
@@ -74,11 +75,14 @@ export default {
         async handleLogout() {
             try {
                 await this.logout();
-                this.$router.push("/"); 
+                this.$router.push("/");
             } catch (error) {
                 console.error("Logout failed:", error);
                 alert("Failed to log out. Please try again.");
             }
+        },
+        setDefaultAvatar(event) {
+            event.target.src = 'http://localhost:8080/storage/avatar/default-avatar.jpg';
         },
     },
     async created() {
@@ -86,12 +90,11 @@ export default {
             await this.checkAuthentication();
         } catch (error) {
             console.error("Failed to check authentication:", error);
-            this.$router.push("/login"); // Chuyển hướng đến trang đăng nhập nếu xác thực thất bại
+            this.$router.push("/login");
         }
     },
 };
 </script>
-
 
 <style scoped>
 .site-logo {
@@ -115,8 +118,9 @@ export default {
     color: #89898a !important;
     font-weight: bold;
 }
-.nav-link:hover{
-    color:white!important; 
+
+.nav-link:hover {
+    color: white !important;
 }
 
 .navbar-toggler-icon {

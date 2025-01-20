@@ -7,13 +7,28 @@ import apiClient from "./api";
  * @param {String} filter - The filter criteria for job search.
  * @returns {Promise<Object>} - The response data containing job listings.
  */
-export const fetchJobs = async (page = 1, size = 10, filter = "") => {
+export const fetchJobs = async (
+  page = 1,
+  size = 10,
+  filter = "",
+  location = ""
+) => {
   try {
-    const filterCriteria = filter ? `name~'${filter}'` : "";
+    // Xây dựng tiêu chí filter
+    const filterCriteria = [];
+    if (filter) {
+      filterCriteria.push(`name~'${filter}'`);
+    }
+    if (location) {
+      filterCriteria.push(`location~'${location}'`);
+    }
+
+    const combinedFilter = filterCriteria.join(" AND "); 
+
     const params = new URLSearchParams({
       page: page.toString(),
       size: size.toString(),
-      filter: filterCriteria,
+      filter: combinedFilter,
     });
 
     const response = await apiClient.get(`/jobs?${params.toString()}`);
@@ -25,6 +40,7 @@ export const fetchJobs = async (page = 1, size = 10, filter = "") => {
     return { content: [] };
   }
 };
+
 
 /**
  * Fetch jobdetails

@@ -18,11 +18,11 @@
                             <i class="fa-solid fa-caret-down"></i>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Ha Noi</a>
-                            <a class="dropdown-item" href="#">Ho Chi Minh</a>
-                            <a class="dropdown-item" href="#">Da Nang</a>
-                            <a class="dropdown-item" href="#">Remote</a>
-                            <a class="dropdown-item" href="#">Other</a>
+                            <a class="dropdown-item" href="/search?location=HANOI">Ha Noi</a>
+                            <a class="dropdown-item" href="/search?location=HOCHIMINH">Ho Chi Minh</a>
+                            <a class="dropdown-item" href="/search?location=DANANG">Da Nang</a>
+                            <a class="dropdown-item" href="/search?location=REMOTE">Remote</a>
+                            <a class="dropdown-item" href="/search?location=OTHER">Other</a>
                         </div>
                     </div>
                 </div>

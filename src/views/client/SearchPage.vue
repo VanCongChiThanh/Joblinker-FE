@@ -7,33 +7,24 @@
         </div>
     </section>
     <section class="container mt-4">
-        <div v-if="jobs && jobs.length > 0" class="mb-4">
+        <div v-if="totalJobs > 0" class="mb-4">
             <h3>
-                <span class="mr-2">{{ jobs.length }}</span>
+                <span class="mr-2">{{ totalJobs}}</span>
                 <span v-html="highlightKeyword(keyword)"></span>
                 jobs in Vietnam
             </h3>
         </div>
         <job-list :jobs="jobs" :keyword="keyword" />
         <div v-if="meta && meta.pages > 1" class="pagination d-flex justify-content-center mb-5">
-            <button 
-                :disabled="currentPage === 1" 
-                @click="loadPage(currentPage - 1)"
-                class="btn-outline">
+            <button :disabled="currentPage === 1" @click="loadPage(currentPage - 1)" class="btn-outline">
                 <i class="fa-solid fa-chevron-left"></i>
             </button>
             <span v-for="page in meta.pages" :key="page" class="mx-1">
-                <button 
-                    :class="{'btn-primary': currentPage === page, 'btn-outline-primary': currentPage !== page}" 
-                    class="btn"
-                    @click="loadPage(page)">
+                <button :class="{'btn-primary': currentPage === page, 'btn-outline-primary': currentPage !== page}" class="btn" @click="loadPage(page)">
                     {{ page }}
                 </button>
             </span>
-            <button 
-                :disabled="currentPage === meta.pages" 
-                @click="loadPage(currentPage + 1)"
-                class="btn-outline">
+            <button :disabled="currentPage === meta.pages" @click="loadPage(currentPage + 1)" class="btn-outline">
                 <i class="fa-solid fa-chevron-right"></i>
             </button>
         </div>
@@ -61,10 +52,12 @@ export default {
     data() {
         return {
             keyword: this.$route.query.keyword || '',
+            location: this.$route.query.location || '',
             jobs: [],
             meta: null,
             currentPage: 1,
-            pageSize: 10
+            pageSize: 10,
+            totalJobs: 0
         };
     },
     watch: {
@@ -76,9 +69,12 @@ export default {
     methods: {
         async loadJobs(page = 1) {
             try {
-                const response = await fetchJobs(page, this.pageSize, this.keyword);
+                const response = await fetchJobs(page, this.pageSize, this.keyword, this.location);
                 this.jobs = response.data.result;
                 this.meta = response.data.meta;
+                if (this.meta) {
+                    this.totalJobs = this.meta.total
+                }
             } catch (error) {
                 console.error("Không thể tải dữ liệu công việc:", error);
             }
@@ -97,7 +93,7 @@ export default {
             }
         },
         highlightKeyword(keyword) {
-            if (!keyword) return ''; 
+            if (!keyword) return '';
             return `<span style="color: red; font-weight: bold;">${keyword}</span>`;
         }
     },

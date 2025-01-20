@@ -5,8 +5,8 @@
         <div v-if="jobDetails" class="row">
             <div class="col-md-8">
                 <div class="card shadow-sm p-4">
-                    <h2 class="job-title">{{ jobDetails.name }}</h2>
-                    <p class="company-name text-dark">{{ jobDetails.company.name }}</p>
+                    <h2 class="job-title font-weight-bold">{{ jobDetails.name }}</h2>
+                    <p class="company-name text-dark ">{{ jobDetails.company.name }}</p>
                     <div class="view-salary text-success font-weight-bold">
                         <i class="fas fa-dollar-sign"></i> {{ jobDetails.salary.toLocaleString() }}
                     </div>
@@ -36,7 +36,7 @@
                         <a href="#" class="text-primary d-block mb-2">
                             View company <i class="fas fa-external-link-alt"></i>
                         </a>
-                        <p>{{ jobDetails.company.address }}</p>
+                        <p><i class="fa-solid fa-location-dot mr-1" style="color: #74C0FC;"></i>{{ jobDetails.company.address }}</p>
                     </div>
 
                     <hr />
@@ -112,7 +112,7 @@ export default {
     background-image: url('../../../public/assets/images/back_jobdetail.jpg');
     background-size: cover;
     background-position: center;
-    padding-top: 100px;
+    padding: 100px 30px 100px 30px ;
     display: flex;
     flex-direction: column;
     height: 100%;
