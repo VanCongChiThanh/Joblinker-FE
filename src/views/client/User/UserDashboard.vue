@@ -30,7 +30,7 @@
         <h4 class="font-weight-bold">Your Attached CV</h4>
         <div class="center">
             <img src="../../../../public/assets/images/cv.svg" alt="">
-            <p class="mt-2">You have not attached a CV yet. Please upload your CV for quick application.</p>
+            <p class="mt-2 text-center">You have not attached a CV yet. Please upload your CV for quick application.</p>
             <a href="/cv-attachment">Manage CV attachment ></a>
         </div>
     </div>

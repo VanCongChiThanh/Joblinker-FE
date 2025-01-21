@@ -37,6 +37,7 @@ const actions = {
       commit("loginSuccess");
 
       const user = await authService.fetchUser();
+
       commit("setUser", user);
     } catch (error) {
       commit("loginFailure");
@@ -75,6 +76,7 @@ const actions = {
 const getters = {
   isAuthenticated: (state) => state.status.loggedIn,
   user: (state) => state.user,
+  hasRole: (state) => (role) => state.user?.role === role,
 };
 
 export default {

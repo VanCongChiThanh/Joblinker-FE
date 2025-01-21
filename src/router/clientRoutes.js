@@ -1,4 +1,4 @@
-import UserDashboardLayout from "@/layout/UserDashboardLayout.vue";
+import DashboardLayout from "@/layout/DashboardLayout.vue";
 export const clientRoutes = [
   {
     path: "/",
@@ -15,9 +15,10 @@ export const clientRoutes = [
     name: "job-detail",
     component: () => import("@/views/client/JobDetail.vue"),
   },
+  //user
   {
     path: "/dashboard",
-    component: UserDashboardLayout,
+    component: DashboardLayout,
     children: [
       {
         path: "",
@@ -25,10 +26,11 @@ export const clientRoutes = [
         component: () => import("@/views/client/User/UserDashboard.vue"),
       },
     ],
+    meta: { requiresAuth: true, requiredRole: "USER" },
   },
   {
     path: "/cv-attachment",
-    component: UserDashboardLayout,
+    component: DashboardLayout,
     children: [
       {
         path: "",
@@ -36,10 +38,11 @@ export const clientRoutes = [
         component: () => import("@/views/client/User/UserCV.vue"),
       },
     ],
+    meta: { requiresAuth: true, requiredRole: "USER" },
   },
   {
     path: "/profile",
-    component: UserDashboardLayout,
+    component: DashboardLayout,
     children: [
       {
         path: "",
@@ -47,5 +50,38 @@ export const clientRoutes = [
         component: () => import("@/views/client/User/UserProfile.vue"),
       },
     ],
+    meta: { requiresAuth: true, requiredRole: "USER" },
+  },
+  //employer
+  {
+    path: "/employer-dashboard",
+    component: DashboardLayout,
+    children: [
+      {
+        path: "",
+        name: "EmployerDashboard",
+        component: () =>
+          import("@/views/client/Employer/EmployerDashboard.vue"),
+      },
+    ],
+    meta: { requiresAuth: true, requiredRole: "EMPLOYER" },
+  },
+  {
+    path: "/manage-company",
+    component: DashboardLayout,
+    children: [
+      {
+        path: "",
+        name: "EmployerDashboard",
+        component: () =>
+          import("@/views/client/Employer/CompanyManage.vue"),
+      },
+    ],
+    meta: { requiresAuth: true, requiredRole: "EMPLOYER" },
+  },
+  {
+    path: "/forbidden",
+    name: "forbidden",
+    component: () => import("@/views/Error/Forbidden.vue"),
   },
 ];

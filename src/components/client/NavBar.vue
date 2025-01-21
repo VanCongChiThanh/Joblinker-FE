@@ -32,7 +32,9 @@
                                 <span>{{ user.name }}</span>
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="/dashboard"><i class="fas fa-th-large mr-1"></i>Dashboard</a>
+                                <a v-if="user.role === 'USER'" class="dropdown-item" href="/dashboard" @click="goToDashboard"><i class="fas fa-th-large mr-1"></i>Dashboard</a>
+                                <a v-if="user.role === 'EMPLOYER'" class="dropdown-item" href="/employer-dashboard" @click="goToDashboard"><i class="fas fa-th-large mr-1"></i>Dashboard</a>
+                                <a v-if="user.role === 'SUPER_ADMIN'" class="dropdown-item" href="admin-dashboard" @click="goToDashboard"><i class="fas fa-th-large mr-1"></i>Dashboard</a>
                                 <a class="dropdown-item" href="#"><i class="fas fa-suitcase mr-1"></i>My jobs</a>
                                 <a class="dropdown-item" href="#"><i class="fa-solid fa-inbox mr-1"></i>Job Invitation</a>
                                 <a class="dropdown-item" href="#"><i class="fa-regular fa-envelope mr-1"></i>Email Subscriptions</a>
