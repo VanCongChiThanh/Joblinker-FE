@@ -58,8 +58,21 @@ export const fetchJobDetails = async (jobId) => {
 };
 export const fetchTopJobs = async () => {
   try {
-    const response = await apiClient.get("/jobs/top-jobs");
+    const response = await apiClient.get(`/jobs/top-jobs`);
     return response.data;
+  } catch (error) {
+    console.error("Error fetching top companies:", error);
+    throw error;
+  }
+};
+/**
+ * @param {Number} jobId 
+ * @returns {Promise} 
+ */
+export const fetchJobsByEmployer = async (empID) => {
+  try {
+    const response = await apiClient.get(`/jobs/by-employer/${empID}`);
+    return response.data.data;
   } catch (error) {
     console.error("Error fetching top companies:", error);
     throw error;

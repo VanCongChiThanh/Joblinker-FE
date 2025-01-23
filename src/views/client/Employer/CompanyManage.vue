@@ -1,7 +1,9 @@
 <template>
 <div class="container">
     <div v-if="company" class="info-company card shadow-sm p-4 mb-3 bg-white">
-
+        <button class="btn btn-link position-absolute" style="top: 10px; right: 10px;" title="Edit" data-toggle="modal" data-target="#exampleModal">
+            <i class="fas fa-edit"></i>
+        </button>
         <div class="d-flex justify-content-center align-items-center border rounded mx-auto" style="width: 15vw; height: 15vw; max-width: 100px; max-height: 100px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
             <img :src="`http://localhost:8080/storage/companyLogo/${company.logo}`" @error="setDefaultAvatar" alt="Company Logo" class="img-fluid" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
         </div>
@@ -9,9 +11,6 @@
             <p><strong>Name:</strong> {{ company.name }}</p>
             <p><strong>Address:</strong> {{ company.address }}</p>
             <p><strong>Description:</strong> {{ company.description }}</p>
-            <button class="btn btn-link edit-btn " title="Edit" data-toggle="modal" data-target="#exampleModal">
-                Update
-            </button>
         </div>
     </div>
     <div v-else>
@@ -95,13 +94,13 @@ export default {
 
         async updateCompany() {
             try {
+                const folder = "companyLogo";
                 if (this.selectedFile) {
-                    const folder = "companyLogo";
                     this.companyForm.logo = await uploadFile(this.selectedFile, folder);
                 } else {
-                    delete this.companyForm.logo;
+                    this.companyForm.logo = this.company.logo; 
                 }
-                await updateCompany(this.company.id,this.companyForm);
+                await updateCompany(this.company.id, this.companyForm);
 
                 this.company = {
                     ...this.companyForm

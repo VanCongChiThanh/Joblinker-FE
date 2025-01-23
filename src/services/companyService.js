@@ -28,7 +28,7 @@ export const fetchTopCompanies = async () => {
 };
 export const fetchCompanyByUserId = async (userId) => {
   try {
-    const response = await apiClient.get(`/companies/by-user/${userId}`);
+    const response = await apiClient.get(`/companies/by-employer/${userId}`);
     return response.data.data;
   } catch (error) {
     console.error(`Error fetching company for user ID ${userId}:`, error);
