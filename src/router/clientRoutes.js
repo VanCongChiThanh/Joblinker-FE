@@ -67,14 +67,25 @@ export const clientRoutes = [
     meta: { requiresAuth: true, requiredRole: "EMPLOYER" },
   },
   {
-    path: "/manage-company",
+    path: "/company-management",
     component: DashboardLayout,
     children: [
       {
         path: "",
         name: "EmployerDashboard",
-        component: () =>
-          import("@/views/client/Employer/CompanyManage.vue"),
+        component: () => import("@/views/client/Employer/CompanyManage.vue"),
+      },
+    ],
+    meta: { requiresAuth: true, requiredRole: "EMPLOYER" },
+  },
+  {
+    path: "/job-management",
+    component: DashboardLayout,
+    children: [
+      {
+        path: "",
+        name: "JobDashboard",
+        component: () => import("@/views/client/Employer/JobManage.vue"),
       },
     ],
     meta: { requiresAuth: true, requiredRole: "EMPLOYER" },

@@ -155,7 +155,7 @@ export default {
     methods: {
         ...mapActions("auth", ["checkAuthentication"]),
         setDefaultAvatar(event) {
-            event.target.src = 'http://localhost:8080/storage/avatar/default-avatar.jpg';
+            event.target.src = '/assets/images/default-avatar.jpg';
         },
         async fetchUserData(userId) {
             try {

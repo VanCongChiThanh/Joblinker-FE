@@ -53,7 +53,7 @@ export default {
     },
     methods: {
         setDefaultAvatar(event) {
-            event.target.src = 'http://localhost:8080/storage/avatar/default-avatar.jpg';
+            event.target.src = '/assets/images/default-avatar.jpg';
         },
     }
 };

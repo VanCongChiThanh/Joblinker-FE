@@ -32,12 +32,20 @@
                                 <span>{{ user.name }}</span>
                             </a>
                             <div class="dropdown-menu">
-                                <a v-if="user.role === 'USER'" class="dropdown-item" href="/dashboard" @click="goToDashboard"><i class="fas fa-th-large mr-1"></i>Dashboard</a>
-                                <a v-if="user.role === 'EMPLOYER'" class="dropdown-item" href="/employer-dashboard" @click="goToDashboard"><i class="fas fa-th-large mr-1"></i>Dashboard</a>
-                                <a v-if="user.role === 'SUPER_ADMIN'" class="dropdown-item" href="admin-dashboard" @click="goToDashboard"><i class="fas fa-th-large mr-1"></i>Dashboard</a>
-                                <a class="dropdown-item" href="#"><i class="fas fa-suitcase mr-1"></i>My jobs</a>
-                                <a class="dropdown-item" href="#"><i class="fa-solid fa-inbox mr-1"></i>Job Invitation</a>
-                                <a class="dropdown-item" href="#"><i class="fa-regular fa-envelope mr-1"></i>Email Subscriptions</a>
+                                <div v-if="user && user.role === 'EMPLOYER'">
+                                    <a class="dropdown-item" href="/employer-dashboard"><i class="fas fa-th-large mr-1"></i>Dashboard</a>
+                                    <a class="dropdown-item" href="/company-management"><i class="fa-regular fa-building mr-1"></i>My Company</a>
+                                    <a class="dropdown-item" href="/job-management"><i class="fas fa-suitcase mr-1"></i>Job Management</a>
+                                </div>
+                                <div v-if="user && user.role === 'USER'">
+                                    <a class="dropdown-item" href="/dashboard" @click="goToDashboard"><i class="fas fa-th-large mr-1"></i>Dashboard</a>
+                                    <a class="dropdown-item" href="#"><i class="fas fa-suitcase mr-1"></i>My jobs</a>
+                                    <a class="dropdown-item" href="#"><i class="fa-solid fa-inbox mr-1"></i>Job Invitation</a>
+                                    <a class="dropdown-item" href="#"><i class="fa-regular fa-envelope mr-1"></i>Email Subscriptions</a>
+                                </div>
+                                <div v-if="user && user.role === 'SUPER_ADMIN'">
+                                    <a class="dropdown-item" href="admin-dashboard" @click="goToDashboard"><i class="fas fa-th-large mr-1"></i>Dashboard</a>
+                                </div>
                                 <a class="dropdown-item" href="#" @click="handleLogout"><i class="fa-solid fa-arrow-right-from-bracket mr-1"></i>Sign out</a>
                             </div>
 
@@ -84,7 +92,7 @@ export default {
             }
         },
         setDefaultAvatar(event) {
-            event.target.src = 'http://localhost:8080/storage/avatar/default-avatar.jpg';
+           event.target.src = '/assets/images/default-avatar.jpg';
         },
     },
     async created() {

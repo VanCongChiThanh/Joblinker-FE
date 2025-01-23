@@ -28,7 +28,10 @@
                 <router-link to="/employer-dashboard" active-class="active"><i class="fas fa-th-large mr-1"></i>Dashboard</router-link>
             </li>
             <li>
-                <router-link to="/manage-company" active-class="active"><i class="fa-regular fa-building mr-1"></i>My company</router-link>
+                <router-link to="/company-management" active-class="active"><i class="fa-regular fa-building mr-1"></i>My company</router-link>
+            </li>
+            <li>
+                <router-link to="/job-management" active-class="active"><i class="fas fa-suitcase mr-1"></i>Job Management</router-link>
             </li>
         </ul>
     </div>
