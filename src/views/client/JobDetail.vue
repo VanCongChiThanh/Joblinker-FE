@@ -95,7 +95,7 @@ export default {
             try {
                 const jobId = this.$route.params.id;
                 const response = await fetchJobDetails(jobId);
-                this.jobDetails = response.data;
+                this.jobDetails = response;
             } catch (error) {
                 console.error("Error fetching job details:", error);
             }

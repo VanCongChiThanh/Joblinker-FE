@@ -1,4 +1,5 @@
 import authService from "@/services/authService";
+import { fetchCompanyByUserId } from "@/services/companyService";
 
 const state = {
   status: {
@@ -37,7 +38,12 @@ const actions = {
       commit("loginSuccess");
 
       const user = await authService.fetchUser();
-
+      if (user.role === "EMPLOYER") {
+        const company = await fetchCompanyByUserId(user.id);
+        user.company = user.company || {};
+        user.company.id = company.id;
+        user.company.name = company.name;
+      }
       commit("setUser", user);
     } catch (error) {
       commit("loginFailure");
@@ -48,6 +54,12 @@ const actions = {
   async fetchUser({ commit }) {
     try {
       const user = await authService.fetchUser();
+      if (user.role === "EMPLOYER") {
+        const company = await fetchCompanyByUserId(user.id);
+        user.company = user.company || {};
+        user.company.id = company.id;
+        user.company.name = company.name;
+      }
       commit("setUser", user);
     } catch (error) {
       console.error("Failed to fetch user:", error);

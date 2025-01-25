@@ -91,6 +91,16 @@ export const clientRoutes = [
     meta: { requiresAuth: true, requiredRole: "EMPLOYER" },
   },
   {
+    path: "/job-form/:id?",
+    name: "JobForm",
+    props: (route) => ({
+      jobId: route.params.id ? route.params.id : null,
+    }),
+    component: () => import("@/views/client/Employer/JobForm.vue"), 
+    meta: { requiresAuth: true, requiredRole: "EMPLOYER" },
+  },
+
+  {
     path: "/forbidden",
     name: "forbidden",
     component: () => import("@/views/Error/Forbidden.vue"),

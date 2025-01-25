@@ -14,8 +14,7 @@ export const fetchJobs = async (
   location = ""
 ) => {
   try {
-    // Xây dựng tiêu chí filter
-    const filterCriteria = [];
+    const filterCriteria = [`active=true`];
     if (filter) {
       filterCriteria.push(`name~'${filter}'`);
     }
@@ -50,7 +49,7 @@ export const fetchJobs = async (
 export const fetchJobDetails = async (jobId) => {
   try {
     const response = await apiClient.get(`/jobs/${jobId}`);
-    return response.data;
+    return response.data.data;
   } catch (error) {
     console.error("Error fetching job details:", error);
     return { content: [] };
@@ -65,16 +64,48 @@ export const fetchTopJobs = async () => {
     throw error;
   }
 };
-/**
- * @param {Number} jobId 
- * @returns {Promise} 
- */
-export const fetchJobsByEmployer = async (empID) => {
+export const fetchSkills = async () => {
   try {
-    const response = await apiClient.get(`/jobs/by-employer/${empID}`);
+    const response = await apiClient.get(`/skills`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching top companies:", error);
+    throw error;
+  }
+};
+export const fetchJobsByCompany = async (comID) => {
+  try {
+    const response = await apiClient.get(`/jobs/by-company/${comID}`);
     return response.data.data;
   } catch (error) {
     console.error("Error fetching top companies:", error);
+    throw error;
+  }
+};
+export const addJob = async (jobData) => {
+  try {
+    const response = await apiClient.post(`/jobs`, jobData);
+    return response.data;
+  } catch (error) {
+    console.error("Error adding job:", error);
+    throw error;
+  }
+};
+export const deleteJob = async (jobId) => {
+  try {
+    const response = await apiClient.delete(`/jobs/${jobId}`);
+    return response.data.data;
+  } catch (error) {
+    console.error("Error adding job:", error);
+    throw error;
+  }
+};
+export const updateJob = async (jobId, jobData) => {
+  try {
+    const response = await apiClient.put(`/jobs/${jobId}`, jobData);
+    return response.data;
+  } catch (error) {
+    console.error("Error updating job:", error);
     throw error;
   }
 };
