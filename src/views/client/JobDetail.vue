@@ -11,7 +11,10 @@
                         <i class="fas fa-dollar-sign"></i> {{ jobDetails.salary.toLocaleString() }}
                     </div>
                     <div class="apply d-flex align-items-center my-3">
-                        <button class="btn btn-primary btn-block flex-grow-1">Apply now</button>
+                        <router-link :to="{ name: 'JobApply', params: { id: jobDetails.id }, query: { jobName: jobDetails.name } }" class="btn btn-primary btn-block flex-grow-1">
+                            Apply now
+                        </router-link>
+
                         <label class="ml-3 d-flex align-items-center">
                             <input type="checkbox" class="heart-checkbox" />
                             <i class="far fa-heart ml-2"></i>
@@ -112,7 +115,7 @@ export default {
     background-image: url('../../../public/assets/images/back_jobdetail.jpg');
     background-size: cover;
     background-position: center;
-    padding: 100px 30px 100px 30px ;
+    padding: 100px 30px 100px 30px;
     display: flex;
     flex-direction: column;
     height: 100%;

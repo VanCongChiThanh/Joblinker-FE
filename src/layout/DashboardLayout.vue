@@ -46,19 +46,23 @@ export default {
 .content {
     flex: 1;
     overflow-y: auto;
+    overflow-x: auto;
     background-color: #f1f1f1;
     margin: 0 30px;
+    padding: 20px;
 }
-@media (max-width: 768px) {
-  .sidebar {
-    display: none;
-  }
 
-  .container-fluid{
+@media (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+
+    .container-fluid {
         padding: 100px 0px;
-  }
-  .content {
-    margin: 0;
-  }
+    }
+
+    .content {
+        margin: 0;
+    }
 }
 </style>

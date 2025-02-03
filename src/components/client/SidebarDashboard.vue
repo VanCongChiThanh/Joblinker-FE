@@ -13,12 +13,23 @@
                 <router-link to="/dashboard" active-class="active"><i class="fas fa-th-large mr-1"></i>Dashboard</router-link>
             </li>
             <li>
-                <router-link to="/cv-attachment" active-class="active"><i class="fa-regular fa-file mr-1"></i>CV Attachment</router-link>
-            </li>
-            <li>
                 <router-link to="/profile" active-class="active"><i class="fa-regular fa-user mr-1"></i>Joblinker Profile</router-link>
             </li>
+            <li>
+                <router-link to="/my-jobs" active-class="active"><i class="fas fa-suitcase mr-1"></i>My jobs</router-link>
+            </li>
+            <li>
+                <router-link to="/job-invitation" active-class="active"><i class="fa-solid fa-inbox mr-1"></i>Job Invitation</router-link>
+            </li>
+            <li>
+                <router-link to="/email-subscriptions" active-class="active"><i class="fa-regular fa-envelope mr-1"></i>Email Subscriptions</router-link>
+            </li>
+            <li>
+                <router-link to="/settings" active-class="active"><i class="fa-solid fa-gear mr-1"></i>Setting</router-link>
+            </li>
         </ul>
+
+
     </div>
 
     <!-- Sidebar cho EMPLOYER -->
@@ -32,6 +43,9 @@
             </li>
             <li>
                 <router-link to="/job-management" active-class="active"><i class="fas fa-suitcase mr-1"></i>Job Management</router-link>
+            </li>
+            <li>
+                <router-link to="/resume-management" active-class="active"><i class="fa-regular fa-file mr-1"></i>Resume Management</router-link>
             </li>
         </ul>
     </div>

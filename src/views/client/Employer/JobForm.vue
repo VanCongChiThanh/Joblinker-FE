@@ -61,7 +61,7 @@
             <div class="form-group col-md-4">
                 <label for="level">Level</label>
                 <select v-model="job.level" id="level" required class="form-control">
-                    <option value="INTERN">INTERN</option>
+                    <option value="INTERN">Intern</option>
                     <option value="FRESHER">Fresher</option>
                     <option value="JUNIOR">Junior</option>
                     <option value="MIDDLE">Middle</option>

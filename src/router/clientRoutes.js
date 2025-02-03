@@ -29,13 +29,30 @@ export const clientRoutes = [
     meta: { requiresAuth: true, requiredRole: "USER" },
   },
   {
-    path: "/cv-attachment",
+    path: "/my-jobs",
     component: DashboardLayout,
     children: [
       {
         path: "",
-        name: "CVAttachment",
-        component: () => import("@/views/client/User/UserCV.vue"),
+        name: "My Job",
+        component: () => import("@/layout/MyJobLayout.vue"),
+        children: [
+          {
+            path: "applied-jobs",
+            name: "Applied Jobs",
+            component: () => import("@/views/client/User/AppliedJobs.vue"),
+          },
+          {
+            path: "",
+            name: "Saved Jobs",
+            component: () => import("@/views/client/User/SavedJobs.vue"),
+          },
+          {
+            path: "recent-viewed-jobs",
+            name: "Recent Viewed Jobs",
+            component: () => import("@/views/client/User/RecentViewedJobs.vue"),
+          },
+        ],
       },
     ],
     meta: { requiresAuth: true, requiredRole: "USER" },
@@ -91,13 +108,34 @@ export const clientRoutes = [
     meta: { requiresAuth: true, requiredRole: "EMPLOYER" },
   },
   {
+    path: "/resume-management/:jobId?",
+    component: DashboardLayout,
+    children: [
+      {
+        path: "",
+        name: "ResumeManagement",
+        component: () => import("@/views/client/Employer/ResumeManage.vue"),
+      },
+    ],
+    meta: { requiresAuth: true, requiredRole: "EMPLOYER" },
+  },
+  {
     path: "/job-form/:id?",
     name: "JobForm",
     props: (route) => ({
       jobId: route.params.id ? route.params.id : null,
     }),
-    component: () => import("@/views/client/Employer/JobForm.vue"), 
+    component: () => import("@/views/client/Employer/JobForm.vue"),
     meta: { requiresAuth: true, requiredRole: "EMPLOYER" },
+  },
+  {
+    path: "/job-apply/:id?",
+    name: "JobApply",
+    props: (route) => ({
+      jobId: route.params.id ? route.params.id : null,
+    }),
+    component: () => import("@/views/client/User/JobApply.vue"),
+    meta: { requiresAuth: true, requiredRole: "USER" },
   },
 
   {

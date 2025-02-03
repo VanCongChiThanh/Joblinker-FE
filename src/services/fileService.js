@@ -13,6 +13,7 @@ export const uploadFile = async (file, folder) => {
     });
 
     const fileName = response.data.data.fileName;
+    console.log(`File uploaded successfully: ${fileName}`);
     return fileName;
   } catch (error) {
     console.error("Error uploading file:", error);

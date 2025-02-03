@@ -42,7 +42,6 @@ const authService = {
   logout() {
     localStorage.removeItem("user");
     localStorage.removeItem("access_token");
-    localStorage.removeItem("refresh_token");
   },
   async register({ name, email, password }) {
     try {
@@ -51,7 +50,7 @@ const authService = {
         email,
         password,
         role: {
-          id: 3, // Role user(default)
+          id: 3,
         },
       });
       return response.data;

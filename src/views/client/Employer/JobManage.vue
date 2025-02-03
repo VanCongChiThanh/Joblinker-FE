@@ -1,10 +1,10 @@
 <template>
 <div class="card shadow-sm p-4 mb-3 bg-white">
-    <button class="btn btn-success btn-sm mb-3" @click="openModal(null)" style="width: 10%;" data-toggle="modal" data-target="#exampleModal">
-        <i class="fa-solid fa-plus"></i>
+    <button class="btn btn-success btn-sm mb-3" @click="openModal(null)" style="width: 20%;" data-toggle="modal" data-target="#exampleModal">
+         <i class="fas fa-plus-circle"></i> Add New Job
     </button>
 
-    <div v-if="jobs && jobs.length > 0">
+    <div class="table-responsive" v-if="jobs && jobs.length > 0">
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -17,13 +17,15 @@
                 <tr v-for="(job, index) in jobs" :key="job.id">
                     <td>{{ index + 1 }}</td>
                     <td>{{ job.name }}</td>
+
                     <td>
                         <button class="btn btn-info btn-sm mr-2" @click="openModal(job.id)">
                             <i class="fas fa-eye" data-toggle="modal" data-target="#exampleModal"></i>
                         </button>
-                        <button class="btn btn-danger btn-sm">
+                        <button class="btn btn-danger btn-sm mr-2">
                             <i class="fas fa-trash"></i>
                         </button>
+                        <a :href="`/resume-management/${job.id}`" target="_blank">View Resumes</a>
                     </td>
                 </tr>
             </tbody>

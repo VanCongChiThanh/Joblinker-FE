@@ -36,12 +36,15 @@
                                     <a class="dropdown-item" href="/employer-dashboard"><i class="fas fa-th-large mr-1"></i>Dashboard</a>
                                     <a class="dropdown-item" href="/company-management"><i class="fa-regular fa-building mr-1"></i>My Company</a>
                                     <a class="dropdown-item" href="/job-management"><i class="fas fa-suitcase mr-1"></i>Job Management</a>
+                                    <a class="dropdown-item" href="/resume-management"><i class="fa-regular fa-file mr-1"></i>Resumes</a>
                                 </div>
                                 <div v-if="user && user.role === 'USER'">
                                     <a class="dropdown-item" href="/dashboard" @click="goToDashboard"><i class="fas fa-th-large mr-1"></i>Dashboard</a>
-                                    <a class="dropdown-item" href="#"><i class="fas fa-suitcase mr-1"></i>My jobs</a>
-                                    <a class="dropdown-item" href="#"><i class="fa-solid fa-inbox mr-1"></i>Job Invitation</a>
-                                    <a class="dropdown-item" href="#"><i class="fa-regular fa-envelope mr-1"></i>Email Subscriptions</a>
+                                    <a class="dropdown-item" href="/profile"><i class="fa-regular fa-user mr-1"></i>Joblinker Profile</a>
+                                    <a class="dropdown-item" href="/my-jobs"><i class="fas fa-suitcase mr-1"></i>My jobs</a>
+                                    <a class="dropdown-item" href="/job-invitation"><i class="fa-solid fa-inbox mr-1"></i>Job Invitation</a>
+                                    <a class="dropdown-item" href="/email-subscriptions"><i class="fa-regular fa-envelope mr-1"></i>Email Subscriptions</a>
+                                    <a class="dropdown-item" href="/settings"><i class="fa-solid fa-gear mr-1"></i>Setting</a>
                                 </div>
                                 <div v-if="user && user.role === 'SUPER_ADMIN'">
                                     <a class="dropdown-item" href="admin-dashboard" @click="goToDashboard"><i class="fas fa-th-large mr-1"></i>Dashboard</a>
@@ -92,7 +95,7 @@ export default {
             }
         },
         setDefaultAvatar(event) {
-           event.target.src = '/assets/images/default-avatar.jpg';
+            event.target.src = '/assets/images/default-avatar.jpg';
         },
     },
     async created() {

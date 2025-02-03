@@ -135,5 +135,5 @@ export default {
 </script>
 
 <style scoped>
-/* Add custom styles for the modal if needed */
+
 </style>

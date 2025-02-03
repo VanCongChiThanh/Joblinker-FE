@@ -3,7 +3,7 @@ import { fetchCompanyByUserId } from "@/services/companyService";
 
 const state = {
   status: {
-    loggedIn: !!localStorage.getItem("access_token"), // Kiểm tra nếu có access_token
+    loggedIn: !!localStorage.getItem("access_token"), 
   },
   user: null,
 };
@@ -33,7 +33,6 @@ const actions = {
   async login({ commit }, { username, password }) {
     commit("loginRequest");
     try {
-
       await authService.login(username, password);
       commit("loginSuccess");
 
@@ -84,6 +83,7 @@ const actions = {
     }
   },
 };
+
 
 const getters = {
   isAuthenticated: (state) => state.status.loggedIn,

@@ -21,10 +21,11 @@
                 </div>
             </div>
         </div>
-
-        <button class="btn btn-primary w-100 mt-3" style="font-size: 1.1rem; padding: 6px 0;">
-            Apply now
-        </button>
+        <div v-if="job">
+            <router-link :to="{ name: 'JobApply', params: { id: job.id }, query: { jobName: job.name } }" class="btn btn-primary w-100 mt-3">
+                Apply now
+            </router-link>
+        </div>
     </main-info>
     <div class="details p-3" style="max-height: 300px; overflow-y: auto;">
         <div class="location mb-2">
