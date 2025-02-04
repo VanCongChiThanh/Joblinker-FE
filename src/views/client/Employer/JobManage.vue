@@ -17,8 +17,7 @@
                 <tr v-for="(job, index) in jobs" :key="job.id">
                     <td>{{ index + 1 }}</td>
                     <td>{{ job.name }}</td>
-
-                    <td>
+                    <td class="d-flex">
                         <button class="btn btn-info btn-sm mr-2" @click="openModal(job.id)">
                             <i class="fas fa-eye" data-toggle="modal" data-target="#exampleModal"></i>
                         </button>

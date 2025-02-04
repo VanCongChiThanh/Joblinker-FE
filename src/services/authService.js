@@ -17,19 +17,17 @@ const authService = {
       throw error;
     }
   },
-  async refreshToken() {
-    try {
-      const response = await apiClient.get("/auth/refresh");
-      const newAccessToken = response.data.data.access_token;
-
-      localStorage.setItem("access_token", newAccessToken);
-
-      return newAccessToken;
-    } catch (error) {
-      console.error("Token refresh failed:", error);
-      throw error;
-    }
-  },
+async refreshToken() {
+  try {
+    const response = await apiClient.get("/auth/refresh");
+    const newAccessToken = response.data.data.access_token;
+    return newAccessToken;
+  } catch (error) {
+    console.error("Token refresh failed:", error);
+    throw error;
+  }
+}
+,
   async fetchUser() {
     try {
       const response = await apiClient.get("/auth/account");

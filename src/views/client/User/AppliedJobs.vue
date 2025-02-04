@@ -1,6 +1,6 @@
 <template>
 <div class="resume-page card shadow-sm p-4 mb-3">
-    <h3 v-if="resumes.length > 0">Applied Jobs ( {{ resumes.length }})</h3>
+    <h3 v-if="resumes.length > 0">Applied Jobs ( {{ totalPages }})</h3>
     <div class="table-responsive">
         <table class="table table-striped table-bordered table-hover table-sm" v-if="resumes.length > 0">
         <thead class="thead-light">

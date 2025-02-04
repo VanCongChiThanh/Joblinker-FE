@@ -21,10 +21,14 @@
                 </div>
             </div>
         </div>
-        <div v-if="job">
-            <router-link :to="{ name: 'JobApply', params: { id: job.id }, query: { jobName: job.name } }" class="btn btn-primary w-100 mt-3">
+        <div v-if="job" class="apply d-flex align-items-center my-3">
+            <router-link :to="{ name: 'JobApply', params: { id: job.id }, query: { jobName: job.name } }" class="btn btn-primary w-100">
                 Apply now
             </router-link>
+            <label class="ml-3 d-flex align-items-center">
+                <input type="checkbox" class="heart-checkbox" />
+                <i class="far fa-heart"></i>
+            </label>
         </div>
     </main-info>
     <div class="details p-3" style="max-height: 300px; overflow-y: auto;">
@@ -86,5 +90,18 @@ export default {
 .section-divider {
     border-top: 1px dashed #e0e0e0;
     margin: 0.5rem 0;
+}
+.heart-checkbox {
+    display: none;
+}
+
+.heart-checkbox+i {
+    font-size: 2rem;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.heart-checkbox:checked+i {
+    color: #ff0000;
 }
 </style>
