@@ -17,7 +17,7 @@
 
                 <div class="salary d-flex align-items-center">
                     <i class="fa-solid fa-dollar-sign text-dark" style="font-size: 1.5rem;"></i>
-                    <a href="#" class="d-block text-primary ml-2" style="font-size: 1.1rem;">Log in to see the salary</a>
+                    <a href="#" class="d-block text-primary ml-2" style="font-size: 1.1rem;">{{ job.salary }}</a>
                 </div>
             </div>
         </div>

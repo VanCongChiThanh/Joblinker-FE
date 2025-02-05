@@ -49,7 +49,6 @@ export default {
     overflow-x: auto;
     background-color: #f1f1f1;
     margin: 0 30px;
-    padding: 20px;
 }
 
 @media (max-width: 768px) {

@@ -69,6 +69,27 @@ export const clientRoutes = [
     ],
     meta: { requiresAuth: true, requiredRole: "USER" },
   },
+  {
+    path: "/job-apply/:id?",
+    name: "JobApply",
+    props: (route) => ({
+      jobId: route.params.id ? route.params.id : null,
+    }),
+    component: () => import("@/views/client/User/JobApply.vue"),
+    meta: { requiresAuth: true, requiredRole: "USER" },
+  },
+  {
+    path: "/email-subscriptions",
+    component: DashboardLayout,
+    children: [
+      {
+        path: "",
+        name: "EmailSubscription",
+        component: () => import("@/views/client/User/EmailSubscription.vue"),
+      },
+    ],
+    meta: { requiresAuth: true, requiredRole: "USER" },
+  },
   //employer
   {
     path: "/employer-dashboard",
@@ -127,15 +148,6 @@ export const clientRoutes = [
     }),
     component: () => import("@/views/client/Employer/JobForm.vue"),
     meta: { requiresAuth: true, requiredRole: "EMPLOYER" },
-  },
-  {
-    path: "/job-apply/:id?",
-    name: "JobApply",
-    props: (route) => ({
-      jobId: route.params.id ? route.params.id : null,
-    }),
-    component: () => import("@/views/client/User/JobApply.vue"),
-    meta: { requiresAuth: true, requiredRole: "USER" },
   },
 
   {

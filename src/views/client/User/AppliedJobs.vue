@@ -3,45 +3,47 @@
     <h3 v-if="resumes.length > 0">Applied Jobs ( {{ totalPages }})</h3>
     <div class="table-responsive">
         <table class="table table-striped table-bordered table-hover table-sm" v-if="resumes.length > 0">
-        <thead class="thead-light">
-            <tr>
-                <th>#</th>
-                <th>Job</th>
-                <th>Company</th>
-                <th>Status</th>
-                <th>Date Submitted</th>
-                <th>CV</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="(resume, index) in resumes" :key="resume.id">
-                <td>{{ index + 1 }}</td>
-                <td>
-                    <a :href="$router.resolve({ name: 'job-detail', params: { id: resume.job.id } }).href" target="_blank" rel="noopener noreferrer" class="text-primary">
-                        {{ resume.job.name }}
-                    </a>
-                </td>
-                <td>{{ resume.companyName }}</td>
-                <td>
-                    <span class="badge" :class="{
+            <thead class="thead-light">
+                <tr>
+                    <th>#</th>
+                    <th>Job</th>
+                    <th>Company</th>
+                    <th>Status</th>
+                    <th>Date Submitted</th>
+                    <th>CV</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(resume, index) in resumes" :key="resume.id">
+                    <td>{{ index + 1 }}</td>
+                    <td>
+                        <a :href="$router.resolve({ name: 'job-detail', params: { id: resume.job.id } }).href" target="_blank" rel="noopener noreferrer" class="text-primary">
+                            {{ resume.job.name }}
+                        </a>
+                    </td>
+                    <td>{{ resume.companyName }}</td>
+                    <td>
+                        <span class="badge" :class="{
           'badge-success': resume.status === 'APPROVED',
           'badge-warning': resume.status === 'PENDING',
           'badge-danger': resume.status === 'REJECTED',
           'badge-info': resume.status === 'REVIEWING'
         }">
-                        {{ resume.status }}
-                    </span>
-                </td>
-                <td>{{ new Date(resume.createdAt).toLocaleDateString() }}</td>
-                <td>
-                    <a :href="getResumeUrl(resume.url)" target="_blank" class="btn btn-info btn-sm" title="View CV"><i class="fas fa-eye"></i></a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                            {{ resume.status }}
+                        </span>
+                    </td>
+                    <td>{{ new Date(resume.createdAt).toLocaleDateString() }}</td>
+                    <td>
+                        <a :href="getResumeUrl(resume.url)" target="_blank" class="btn btn-sm btn-outline-success shadow-sm text-center " title="View CV">
+                            <i class="fas fa-eye my-1"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
         <div v-else>
-        <p>No resumes found.</p>
-    </div>
+            <p>No resumes found.</p>
+        </div>
     </div>
 
     <div class="pagination" v-if="totalPages > 1">
@@ -98,7 +100,6 @@ export default {
 </script>
 
 <style>
-
 .resume-page {
     padding: 20px;
 }
@@ -128,5 +129,4 @@ export default {
 .pagination span {
     font-weight: bold;
 }
-
 </style>
