@@ -25,9 +25,10 @@
                             <small>Hoặc</small>
                         </p>
                         <div class="social-login-buttons">
-                            <button class="btn btn-light w-100 mb-2" type="button">
+                            <button class="btn btn-light w-100 mb-2" @click="loginWithGoogle" type="button">
                                 <i class="fab fa-google"></i> Đăng nhập với Google
                             </button>
+
                             <button class="btn btn-light w-100" type="button">
                                 <i class="fab fa-linkedin"></i> Đăng nhập với LinkedIn
                             </button>
@@ -45,38 +46,43 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import {
+    mapActions
+} from "vuex";
 import NavBar from "@/components/client/NavBar.vue";
 import Footer from "@/components/client/SiteFooter.vue";
 
 export default {
-  name: "LoginPage",
-  components: {
-    NavBar,
-    Footer,
-  },
-  data() {
-    return {
-      loginData: {
-        username: "",
-        password: "",
-      },
-    };
-  },
-  methods: {
-    ...mapActions("auth",["login"]),
-    async handleLogin() {
-      try {
-         await this.login({
-        username: this.loginData.username,
-        password: this.loginData.password
-      }); 
-        this.$router.push("/");  
-      } catch (error) {
-        console.error("Login error:", error);
-      }
+    name: "LoginPage",
+    components: {
+        NavBar,
+        Footer,
     },
-  },
+    data() {
+        return {
+            loginData: {
+                username: "",
+                password: "",
+            },
+        };
+    },
+    methods: {
+        ...mapActions("auth", ["login"]),
+        async handleLogin() {
+            try {
+                await this.login({
+                    username: this.loginData.username,
+                    password: this.loginData.password
+                });
+                this.$router.push("/");
+            } catch (error) {
+                console.error("Login error:", error.data);
+            }
+        },
+        loginWithGoogle() {
+            window.location.href = "http://localhost:8080/oauth2/authorization/google";
+        },
+    },
 };
 </script>
 
@@ -116,14 +122,14 @@ body {
     background-color: white;
     padding: 30px;
     border-radius: 8px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); 
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     width: 100%;
-    max-width: 350px;
-    transition: box-shadow 0.3s ease; 
+    min-width: 300px;
+    transition: box-shadow 0.3s ease;
 }
 
 .login-form:hover {
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5); 
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
 }
 
 .form-group {

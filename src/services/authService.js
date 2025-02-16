@@ -17,17 +17,18 @@ const authService = {
       throw error;
     }
   },
-async refreshToken() {
-  try {
-    const response = await apiClient.get("/auth/refresh");
-    const newAccessToken = response.data.data.access_token;
-    return newAccessToken;
-  } catch (error) {
-    console.error("Token refresh failed:", error);
-    throw error;
-  }
-}
-,
+ 
+
+  async refreshToken() {
+    try {
+      const response = await apiClient.get("/auth/refresh");
+      const newAccessToken = response.data.data.access_token;
+      return newAccessToken;
+    } catch (error) {
+      console.error("Token refresh failed:", error);
+      throw error;
+    }
+  },
   async fetchUser() {
     try {
       const response = await apiClient.get("/auth/account");
@@ -37,9 +38,15 @@ async refreshToken() {
       throw error;
     }
   },
-  logout() {
-    localStorage.removeItem("user");
-    localStorage.removeItem("access_token");
+  async logout() {
+    try {
+      await apiClient.post("/auth/logout");
+      localStorage.removeItem("user");
+      localStorage.removeItem("access_token");
+      window.location.href = "/login";
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
   },
   async register({ name, email, password }) {
     try {

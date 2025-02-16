@@ -82,6 +82,7 @@ import Footer from "@/components/client/SiteFooter.vue";
 import {
     fetchJobDetails
 } from "@/services/jobService";
+import Cookies from 'js-cookie';
 export default {
     name: "JobDetail",
     components: {
@@ -99,6 +100,37 @@ export default {
                 const jobId = this.$route.params.id;
                 const response = await fetchJobDetails(jobId);
                 this.jobDetails = response;
+                const jobData = {
+                    id: this.jobDetails.id,
+                    name: this.jobDetails.name,
+                    company: {
+                        name: this.jobDetails.company.name,
+                        logo: this.jobDetails.company.logo
+                    },
+                    level: this.jobDetails.level,
+                    salary: this.jobDetails.salary,
+                    location: this.jobDetails.location,
+                };
+
+                let recentlyViewed = Cookies.get('recentlyViewedJobs');
+                if (recentlyViewed) {
+                    recentlyViewed = JSON.parse(recentlyViewed);
+                } else {
+                    recentlyViewed = [];
+                }
+
+                if (!recentlyViewed.some(job => job.id === jobData.id)) {
+                    recentlyViewed.unshift(jobData); 
+                }
+
+                if (recentlyViewed.length > 6) {
+                    recentlyViewed.pop(); 
+                }
+
+                Cookies.set('recentlyViewedJobs', JSON.stringify(recentlyViewed), {
+                    expires: 7 
+                });
+
             } catch (error) {
                 console.error("Error fetching job details:", error);
             }

@@ -19,16 +19,12 @@
                 <router-link to="/my-jobs" active-class="active"><i class="fas fa-suitcase mr-1"></i>My jobs</router-link>
             </li>
             <li>
-                <router-link to="/job-invitation" active-class="active"><i class="fa-solid fa-inbox mr-1"></i>Job Invitation</router-link>
-            </li>
-            <li>
                 <router-link to="/email-subscriptions" active-class="active"><i class="fa-regular fa-envelope mr-1"></i>Email Subscriptions</router-link>
             </li>
             <li>
                 <router-link to="/settings" active-class="active"><i class="fa-solid fa-gear mr-1"></i>Setting</router-link>
             </li>
         </ul>
-
 
     </div>
 

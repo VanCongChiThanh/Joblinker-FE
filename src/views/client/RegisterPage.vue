@@ -103,8 +103,8 @@ export default {
                 alert("Đăng ký thành công!");
                 console.log("Server Response:", response);
             } catch (error) {
-                alert("Đăng ký thất bại!");
-                console.error("Registration Error:", error);
+                alert("Đăng ký thất bại:"+ error.response.data.error);
+                console.error("Registration Error:", error.response.data.error);
             }
         },
     },

@@ -155,4 +155,8 @@ export const clientRoutes = [
     name: "forbidden",
     component: () => import("@/views/Error/Forbidden.vue"),
   },
+  {
+    path: "/oauth2/callback",
+    component: () => import("@/views/client/OAuthCallback.vue"),
+  },
 ];

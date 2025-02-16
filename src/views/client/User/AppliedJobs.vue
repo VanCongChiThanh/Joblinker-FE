@@ -1,9 +1,10 @@
 <template>
-<div class="resume-page card shadow-sm p-4 mb-3">
-    <h3 v-if="resumes.length > 0">Applied Jobs ( {{ totalPages }})</h3>
+<div>
+    <h4 v-if="resumes.length > 0" class="title font-weight-bold pb-4 pl-2">Applied Jobs ( {{ totalPages }})</h4>
+    <div class="resume-page shadow-sm px-4 py-2">
     <div class="table-responsive">
-        <table class="table table-striped table-bordered table-hover table-sm" v-if="resumes.length > 0">
-            <thead class="thead-light">
+        <table class="table table-striped  table-hover table-sm" v-if="resumes.length > 0">
+            <thead >
                 <tr>
                     <th>#</th>
                     <th>Job</th>
@@ -56,6 +57,7 @@
         </button>
     </div>
 </div>
+</div>
 </template>
 
 <script>
@@ -100,8 +102,8 @@ export default {
 </script>
 
 <style>
-.resume-page {
-    padding: 20px;
+.title{
+      background-color: rgb(241, 241, 241);
 }
 
 .table {

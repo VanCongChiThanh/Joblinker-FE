@@ -116,7 +116,7 @@ export default {
             console.log("Resume created:", createdResume);
 
             alert("Application submitted successfully!");
-            this.$router.push("/my-resumes");
+            this.$router.push("/my-jobs/applied-jobs");
 
         },
     },
